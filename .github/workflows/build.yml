@@ -19,14 +19,21 @@ jobs:
     - name: Build Xcode Project (Unsigned)
       run: |
         xcodebuild -project LifeFlow.xcodeproj \
-                   -target LifeFlow \
+                   -scheme LifeFlow \
                    -sdk iphoneos \
                    -configuration Release \
                    SYMROOT=build \
                    CODE_SIGNING_ALLOWED=NO \
                    CODE_SIGNING_REQUIRED=NO \
                    CODE_SIGN_IDENTITY="" \
-                   clean build
+                   clean build > xcodebuild.log 2>&1 || (cat xcodebuild.log && exit 1)
+
+    - name: Upload Build Log
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: xcodebuild-log
+        path: xcodebuild.log
 
     - name: Package IPA
       run: |
