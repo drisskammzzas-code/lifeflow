@@ -19,7 +19,7 @@ jobs:
     - name: Build Xcode Project (Unsigned)
       run: |
         xcodebuild -project LifeFlow.xcodeproj \
-                   -scheme LifeFlow \
+                   -target LifeFlow \
                    -sdk iphoneos \
                    -configuration Release \
                    SYMROOT=build \
