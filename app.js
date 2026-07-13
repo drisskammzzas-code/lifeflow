@@ -51,6 +51,9 @@ const TRANSLATIONS = {
     notif_denied: "Autorisation de notification refusée.",
     "todo-list-title": "Ma Liste de Tâches",
     "todo-input": "Ajouter une tâche...",
+    "settings-mode-title": "Mode d'affichage",
+    "theme-mode-dark": "🌙 Sombre",
+    "theme-mode-light": "☀️ Clair",
     ai_fallback_welcome: "Bonjour ! Je suis votre coach d'organisation LifeFlow. Configurez votre clé API Gemini dans l'onglet Profil pour des conseils ultra-personnalisés, ou discutez avec moi hors-ligne !",
     ai_msg_hello: "Bonjour ! Comment se passe votre journée d'organisation ?",
     ai_msg_sport: "Le sport est la clé de la discipline. Même 10 minutes font une différence !",
@@ -103,6 +106,9 @@ const TRANSLATIONS = {
     notif_denied: "Notification permission denied.",
     "todo-list-title": "My To-Do List",
     "todo-input": "Add a task...",
+    "settings-mode-title": "Display Mode",
+    "theme-mode-dark": "🌙 Dark",
+    "theme-mode-light": "☀️ Light",
     ai_fallback_welcome: "Hello! I am your LifeFlow organization coach. Add your Gemini API key in the Profile tab for smart custom advice, or talk to me offline!",
     ai_msg_hello: "Hello! How is your day going?",
     ai_msg_sport: "Exercise is the key to discipline. Even 10 minutes makes a difference!",
@@ -116,7 +122,8 @@ let appState = {
     lang: 'FR',
     username: 'Driss',
     themeColor: '#8a2be2',
-    geminiKey: ''
+    geminiKey: '',
+    themeMode: 'dark'
   },
   templates: [],
   logs: [],
@@ -183,9 +190,18 @@ function applyThemeColor(color) {
   document.documentElement.style.setProperty('--neon-glow', `rgba(${r}, ${g}, ${b}, 0.35)`);
   document.documentElement.style.setProperty('--card-glow', `rgba(${r}, ${g}, ${b}, 0.12)`);
   
-  // Compute matching dark & mid background colors dynamically
-  const bgMid = `rgb(${Math.round(r * 0.12)}, ${Math.round(g * 0.12)}, ${Math.round(b * 0.12)})`;
-  const bgDark = `rgb(${Math.round(r * 0.04)}, ${Math.round(g * 0.04)}, ${Math.round(b * 0.04)})`;
+  // Compute matching background colors dynamically depending on Light / Dark mode
+  const mode = appState.settings.themeMode || 'dark';
+  let bgMid, bgDark;
+  if (mode === 'light') {
+    // Soft pastel versions
+    bgMid = `rgb(${255 - Math.round((255 - r) * 0.12)}, ${255 - Math.round((255 - g) * 0.12)}, ${255 - Math.round((255 - b) * 0.12)})`;
+    bgDark = '#f3f4f6';
+  } else {
+    // Deep neon dark versions
+    bgMid = `rgb(${Math.round(r * 0.12)}, ${Math.round(g * 0.12)}, ${Math.round(b * 0.12)})`;
+    bgDark = `rgb(${Math.round(r * 0.04)}, ${Math.round(g * 0.04)}, ${Math.round(b * 0.04)})`;
+  }
   document.documentElement.style.setProperty('--bg-color-mid', bgMid);
   document.documentElement.style.setProperty('--bg-color-dark', bgDark);
   
@@ -1071,6 +1087,40 @@ function initProfileTab() {
     applyThemeColor(e.target.value);
   });
 
+  // Display Mode toggle
+  const modeDarkBtn = document.getElementById('theme-mode-dark');
+  const modeLightBtn = document.getElementById('theme-mode-light');
+  
+  if (modeDarkBtn && modeLightBtn) {
+    // Set initial active state based on settings
+    const currentMode = appState.settings.themeMode || 'dark';
+    if (currentMode === 'light') {
+      modeLightBtn.classList.add('active');
+      modeDarkBtn.classList.remove('active');
+    } else {
+      modeDarkBtn.classList.add('active');
+      modeLightBtn.classList.remove('active');
+    }
+    
+    modeDarkBtn.addEventListener('click', () => {
+      appState.settings.themeMode = 'dark';
+      document.body.classList.remove('light-theme');
+      modeDarkBtn.classList.add('active');
+      modeLightBtn.classList.remove('active');
+      applyThemeColor(appState.settings.themeColor);
+      saveState();
+    });
+    
+    modeLightBtn.addEventListener('click', () => {
+      appState.settings.themeMode = 'light';
+      document.body.classList.add('light-theme');
+      modeLightBtn.classList.add('active');
+      modeDarkBtn.classList.remove('active');
+      applyThemeColor(appState.settings.themeColor);
+      saveState();
+    });
+  }
+
   // Notification Test trigger
   testNotifBtn.addEventListener('click', requestAndTriggerNotification);
 
@@ -1358,6 +1408,11 @@ function initColorWheel(canvasId, callback) {
 // 15. Application Boot Loader
 window.addEventListener('DOMContentLoaded', () => {
   loadState();
+  
+  // Set initial display mode class
+  const mode = appState.settings.themeMode || 'dark';
+  document.body.classList.toggle('light-theme', mode === 'light');
+
   initNavigation();
   initActivityForm();
   initChatCoach();
@@ -1376,4 +1431,17 @@ window.addEventListener('DOMContentLoaded', () => {
   // Boot settings
   applyThemeColor(appState.settings.themeColor);
   applyLocalization();
+  
+  // Update theme mode selector buttons
+  const modeDarkBtn = document.getElementById('theme-mode-dark');
+  const modeLightBtn = document.getElementById('theme-mode-light');
+  if (modeDarkBtn && modeLightBtn) {
+    if (mode === 'light') {
+      modeLightBtn.classList.add('active');
+      modeDarkBtn.classList.remove('active');
+    } else {
+      modeDarkBtn.classList.add('active');
+      modeLightBtn.classList.remove('active');
+    }
+  }
 });

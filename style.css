@@ -1415,3 +1415,200 @@ body {
 .color-wheel-canvas:active {
   transform: scale(1.02);
 }
+
+/* ==========================================
+   Light Theme & Mode Selectors
+   ========================================== */
+
+.theme-mode-selector {
+  display: flex;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--card-border);
+  border-radius: var(--border-radius-md);
+  padding: 4px;
+}
+
+body.light-theme .theme-mode-selector {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.mode-btn {
+  flex: 1;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  padding: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.mode-btn.active {
+  background: var(--neon-color) !important;
+  color: white !important;
+  box-shadow: 0 2px 8px var(--neon-glow);
+}
+
+/* Light Theme Variables Overrides */
+body.light-theme {
+  --bg-color: #f3f4f6;
+  --card-bg: rgba(255, 255, 255, 0.65);
+  --card-border: rgba(0, 0, 0, 0.06);
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --text-muted: #9ca3af;
+  --card-glow: rgba(138, 43, 226, 0.06);
+}
+
+/* Light Theme Element Adjustments */
+body.light-theme .app-header {
+  background: rgba(243, 244, 246, 0.8);
+  border-color: rgba(0, 0, 0, 0.06);
+}
+
+body.light-theme .logo-text {
+  background: linear-gradient(135deg, #111827 30%, var(--neon-color) 100%);
+  -webkit-background-clip: text;
+}
+
+body.light-theme .header-btn {
+  background: rgba(0, 0, 0, 0.03);
+  color: #111827;
+}
+
+body.light-theme .header-btn:hover {
+  color: white;
+}
+
+body.light-theme .bottom-nav {
+  background: rgba(243, 244, 246, 0.85);
+  border-color: rgba(0, 0, 0, 0.06);
+}
+
+body.light-theme .activity-item {
+  background: rgba(0, 0, 0, 0.015);
+  border-color: rgba(0, 0, 0, 0.04);
+}
+
+body.light-theme .activity-item:hover {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+body.light-theme .activity-item.completed {
+  background: rgba(138, 43, 226, 0.03);
+}
+
+body.light-theme .activity-emoji-box {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.03);
+}
+
+body.light-theme .cal-nav-btn {
+  background: rgba(0, 0, 0, 0.03);
+  color: #111827;
+}
+
+body.light-theme .calendar-day-cell:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+body.light-theme .calendar-day-cell.inactive {
+  color: #9ca3af;
+  opacity: 0.3;
+}
+
+body.light-theme .chart-bar-bg {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+body.light-theme .chat-container {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+body.light-theme .chat-message.ai {
+  background: #ffffff;
+  color: #111827;
+  border-color: rgba(0, 0, 0, 0.04);
+}
+
+body.light-theme #chat-input {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+body.light-theme #chat-input:focus {
+  background: #ffffff;
+}
+
+body.light-theme .input-row input {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+body.light-theme .save-btn {
+  background: rgba(0, 0, 0, 0.03);
+  color: #111827;
+}
+
+body.light-theme .color-picker-wrapper {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+body.light-theme .theme-color-picker::-webkit-color-swatch {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .danger-btn.secondary {
+  background: rgba(0, 0, 0, 0.02);
+  color: #111827;
+}
+
+body.light-theme .danger-btn.secondary:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+body.light-theme .modal-card {
+  background: #ffffff;
+}
+
+body.light-theme .form-group input[type="text"],
+body.light-theme .form-group select,
+body.light-theme .form-group input[type="date"],
+body.light-theme .form-group input[type="time"] {
+  background: rgba(0, 0, 0, 0.02);
+  color: #111827;
+}
+
+body.light-theme .weekday-checkboxes button {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+body.light-theme .weekday-checkboxes button.active {
+  background: rgba(138, 43, 226, 0.08);
+}
+
+body.light-theme .color-wheel-wrapper {
+  background: rgba(0, 0, 0, 0.01);
+}
+
+body.light-theme .todo-item {
+  background: rgba(0, 0, 0, 0.015);
+  border-color: rgba(0, 0, 0, 0.04);
+}
+
+body.light-theme .todo-item:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+body.light-theme .todo-item.completed {
+  background: rgba(0, 0, 0, 0.005);
+}
+
+body.light-theme #todo-input {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+body.light-theme #todo-input:focus {
+  background: #ffffff;
+}
