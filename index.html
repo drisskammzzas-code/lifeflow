@@ -72,6 +72,20 @@
           <!-- Dynamically populated -->
         </div>
       </div>
+
+      <!-- To-Do List Section -->
+      <div class="todo-section">
+        <h3 id="todo-list-title">Ma Liste de Tâches</h3>
+        <div class="todo-input-row">
+          <input type="text" id="todo-input" placeholder="Ajouter une tâche...">
+          <button id="add-todo-btn" class="todo-add-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </button>
+        </div>
+        <div id="todo-items-list" class="todo-list">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
     </section>
 
     <!-- 2. PLANNING / CALENDAR VIEW -->
@@ -235,7 +249,7 @@
         <div class="form-group">
           <label id="lbl-act-emoji">Emoji représentatif</label>
           <div class="emoji-picker-container">
-            <input type="text" id="activity-emoji-input" maxlength="2" placeholder="💪" value="💪" required>
+            <input type="text" id="activity-emoji-input" maxlength="10" placeholder="💪" value="💪" required>
             <div id="emoji-quick-select" class="emoji-quick-list">
               <span>💪</span><span>🧘</span><span>📚</span><span>🏃</span><span>💼</span><span>🥦</span><span>💧</span><span>🎨</span>
             </div>

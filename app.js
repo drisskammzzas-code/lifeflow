@@ -49,6 +49,8 @@ const TRANSLATIONS = {
     empty_date: "Aucune activité pour cette date.",
     notif_granted: "Notifications autorisées !",
     notif_denied: "Autorisation de notification refusée.",
+    "todo-list-title": "Ma Liste de Tâches",
+    "todo-input": "Ajouter une tâche...",
     ai_fallback_welcome: "Bonjour ! Je suis votre coach d'organisation LifeFlow. Configurez votre clé API Gemini dans l'onglet Profil pour des conseils ultra-personnalisés, ou discutez avec moi hors-ligne !",
     ai_msg_hello: "Bonjour ! Comment se passe votre journée d'organisation ?",
     ai_msg_sport: "Le sport est la clé de la discipline. Même 10 minutes font une différence !",
@@ -99,6 +101,8 @@ const TRANSLATIONS = {
     empty_date: "No activities for this date.",
     notif_granted: "Notifications allowed!",
     notif_denied: "Notification permission denied.",
+    "todo-list-title": "My To-Do List",
+    "todo-input": "Add a task...",
     ai_fallback_welcome: "Hello! I am your LifeFlow organization coach. Add your Gemini API key in the Profile tab for smart custom advice, or talk to me offline!",
     ai_msg_hello: "Hello! How is your day going?",
     ai_msg_sport: "Exercise is the key to discipline. Even 10 minutes makes a difference!",
@@ -114,14 +118,10 @@ let appState = {
     themeColor: '#8a2be2',
     geminiKey: ''
   },
-  templates: [
-    // Pre-populate with standard sample templates
-    { id: '1', name: 'Méditation', emoji: '🧘', category: 'Health', time: '08:00', color: '#00ff88', recurType: 'weekly', days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], date: '' },
-    { id: '2', name: 'Lecture', emoji: '📚', category: 'Leisure', time: '21:00', color: '#ff007c', recurType: 'weekly', days: ['Mon', 'Wed', 'Fri'], date: '' },
-    { id: '3', name: 'Planification', emoji: '🦋', category: 'Work', time: '09:00', color: '#00e1ff', recurType: 'weekly', days: ['Mon', 'Sun'], date: '' }
-  ],
+  templates: [],
   logs: [],
-  messages: []
+  messages: [],
+  todos: []
 };
 
 // Load state from localStorage
@@ -130,11 +130,13 @@ function loadState() {
   const savedTemplates = localStorage.getItem('lifeflow_templates');
   const savedLogs = localStorage.getItem('lifeflow_logs');
   const savedMessages = localStorage.getItem('lifeflow_messages');
+  const savedTodos = localStorage.getItem('lifeflow_todos');
 
   if (savedSettings) appState.settings = JSON.parse(savedSettings);
   if (savedTemplates) appState.templates = JSON.parse(savedTemplates);
   if (savedLogs) appState.logs = JSON.parse(savedLogs);
   if (savedMessages) appState.messages = JSON.parse(savedMessages);
+  if (savedTodos) appState.todos = JSON.parse(savedTodos);
 }
 
 function saveState() {
@@ -142,6 +144,7 @@ function saveState() {
   localStorage.setItem('lifeflow_templates', JSON.stringify(appState.templates));
   localStorage.setItem('lifeflow_logs', JSON.stringify(appState.logs));
   localStorage.setItem('lifeflow_messages', JSON.stringify(appState.messages));
+  localStorage.setItem('lifeflow_todos', JSON.stringify(appState.todos));
 }
 
 // 3. UI Helpers & View Navigation
@@ -180,6 +183,12 @@ function applyThemeColor(color) {
   document.documentElement.style.setProperty('--neon-glow', `rgba(${r}, ${g}, ${b}, 0.35)`);
   document.documentElement.style.setProperty('--card-glow', `rgba(${r}, ${g}, ${b}, 0.12)`);
   
+  // Compute matching dark & mid background colors dynamically
+  const bgMid = `rgb(${Math.round(r * 0.12)}, ${Math.round(g * 0.12)}, ${Math.round(b * 0.12)})`;
+  const bgDark = `rgb(${Math.round(r * 0.04)}, ${Math.round(g * 0.04)}, ${Math.round(b * 0.04)})`;
+  document.documentElement.style.setProperty('--bg-color-mid', bgMid);
+  document.documentElement.style.setProperty('--bg-color-dark', bgDark);
+  
   // Highlight active theme picker button
   document.querySelectorAll('.theme-color-option').forEach(opt => {
     if (opt.getAttribute('data-color') === color) {
@@ -203,9 +212,9 @@ function applyLocalization() {
   // Update toggle button text
   document.getElementById('lang-toggle-btn').querySelector('.btn-text').innerText = lang === 'FR' ? 'EN' : 'FR';
   
-  // Localize plain elements by ID
+  // Localize plain elements by ID (support key mappings for elements with hyphens)
   Object.keys(dict).forEach(key => {
-    const el = document.getElementById(key);
+    const el = document.getElementById(key) || document.getElementById(key.replace(/_/g, '-'));
     if (el) {
       if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
         el.placeholder = dict[key];
@@ -231,6 +240,7 @@ function applyLocalization() {
 
   // Refresh lists
   renderTodayList();
+  renderTodoList();
   renderCalendar();
   renderStats();
 }
@@ -478,6 +488,7 @@ function renderTodayList() {
   });
 
   updateProgressRing(completedCount, todayActivities.length);
+  renderTodoList();
 }
 
 function toggleActivityCompletion(templateId, dateKey) {
@@ -1101,13 +1112,111 @@ function requestAndTriggerNotification() {
   });
 }
 
-// 13. Application Boot Loader
+// 13. To-Do List Engine
+function initTodoList() {
+  const addBtn = document.getElementById('add-todo-btn');
+  const input = document.getElementById('todo-input');
+  
+  if (addBtn) {
+    addBtn.addEventListener('click', addTodo);
+  }
+  if (input) {
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        addTodo();
+      }
+    });
+  }
+  
+  renderTodoList();
+}
+
+function renderTodoList() {
+  const container = document.getElementById('todo-items-list');
+  if (!container) return;
+  container.innerHTML = '';
+
+  const dict = TRANSLATIONS[appState.settings.lang];
+
+  if (!appState.todos || appState.todos.length === 0) {
+    container.innerHTML = `<div class="empty-state" style="padding: 20px 0;"><p>${appState.settings.lang === 'FR' ? 'Aucune tâche en cours.' : 'No active tasks.'}</p></div>`;
+    return;
+  }
+
+  appState.todos.forEach((todo, index) => {
+    const item = document.createElement('div');
+    item.className = `todo-item ${todo.completed ? 'completed' : ''}`;
+    
+    item.innerHTML = `
+      <div class="todo-item-left">
+        <div class="todo-item-checkbox">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+        <span class="todo-text">${todo.text}</span>
+      </div>
+      <button class="todo-delete-btn" title="${appState.settings.lang === 'FR' ? 'Supprimer' : 'Delete'}">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+      </button>
+    `;
+
+    item.querySelector('.todo-item-left').addEventListener('click', () => {
+      toggleTodo(index);
+    });
+
+    item.querySelector('.todo-delete-btn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      deleteTodo(index);
+    });
+
+    container.appendChild(item);
+  });
+}
+
+function addTodo() {
+  const input = document.getElementById('todo-input');
+  if (!input) return;
+  const text = input.value.trim();
+  if (!text) return;
+
+  if (!appState.todos) appState.todos = [];
+  
+  appState.todos.push({
+    text: text,
+    completed: false
+  });
+
+  input.value = '';
+  saveState();
+  renderTodoList();
+}
+
+function toggleTodo(index) {
+  if (!appState.todos || !appState.todos[index]) return;
+  appState.todos[index].completed = !appState.todos[index].completed;
+  
+  if (appState.todos[index].completed) {
+    triggerConfetti();
+  }
+  
+  saveState();
+  renderTodoList();
+}
+
+function deleteTodo(index) {
+  if (!appState.todos || !appState.todos[index]) return;
+  appState.todos.splice(index, 1);
+  saveState();
+  renderTodoList();
+}
+
+// 14. Application Boot Loader
 window.addEventListener('DOMContentLoaded', () => {
   loadState();
   initNavigation();
   initActivityForm();
   initChatCoach();
   initProfileTab();
+  initTodoList();
   
   // Boot settings
   applyThemeColor(appState.settings.themeColor);
