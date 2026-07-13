@@ -194,13 +194,13 @@ function applyThemeColor(color) {
   const mode = appState.settings.themeMode || 'dark';
   let bgMid, bgDark;
   if (mode === 'light') {
-    // Soft pastel versions
-    bgMid = `rgb(${255 - Math.round((255 - r) * 0.12)}, ${255 - Math.round((255 - g) * 0.12)}, ${255 - Math.round((255 - b) * 0.12)})`;
-    bgDark = '#f3f4f6';
+    // Highly visible, beautiful pastel color wash
+    bgMid = `rgb(${255 - Math.round((255 - r) * 0.42)}, ${255 - Math.round((255 - g) * 0.42)}, ${255 - Math.round((255 - b) * 0.42)})`;
+    bgDark = `rgb(${255 - Math.round((255 - r) * 0.16)}, ${255 - Math.round((255 - g) * 0.16)}, ${255 - Math.round((255 - b) * 0.16)})`;
   } else {
-    // Deep neon dark versions
-    bgMid = `rgb(${Math.round(r * 0.12)}, ${Math.round(g * 0.12)}, ${Math.round(b * 0.12)})`;
-    bgDark = `rgb(${Math.round(r * 0.04)}, ${Math.round(g * 0.04)}, ${Math.round(b * 0.04)})`;
+    // Highly visible, rich dark neon background gradient
+    bgMid = `rgb(${Math.round(r * 0.32)}, ${Math.round(g * 0.32)}, ${Math.round(b * 0.32)})`;
+    bgDark = `rgb(${Math.round(r * 0.10)}, ${Math.round(g * 0.10)}, ${Math.round(b * 0.10)})`;
   }
   document.documentElement.style.setProperty('--bg-color-mid', bgMid);
   document.documentElement.style.setProperty('--bg-color-dark', bgDark);
