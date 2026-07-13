@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#8a2be2">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>LifeFlow</title>
+  
+  <!-- Manifest and Stylesheets -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Premium Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Confetti Canvas overlay for activity completions -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Premium Glassmorphic Header -->
+  <header class="app-header">
+    <div class="header-logo">
+      <span class="logo-emoji">🦋</span>
+      <h1 class="logo-text">LifeFlow</h1>
+    </div>
+    <div class="header-actions">
+      <!-- Language Switcher Button -->
+      <button id="lang-toggle-btn" class="header-btn" title="Changer de langue">
+        <span class="btn-text">EN</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main View Container -->
+  <main class="view-container">
+    
+    <!-- 1. HOME VIEW -->
+    <section id="view-home" class="app-view active">
+      <div class="welcome-card">
+        <div class="welcome-text">
+          <h2 id="welcome-title">Bonjour, Driss</h2>
+          <p id="welcome-subtitle">Aujourd'hui est un nouveau jour pour progresser.</p>
+        </div>
+      </div>
+      
+      <!-- Ring Progress Card -->
+      <div class="progress-card">
+        <div class="progress-ring-container">
+          <svg class="progress-ring" width="120" height="120">
+            <circle class="progress-ring-bg" stroke="rgba(255,255,255,0.05)" stroke-width="8" fill="transparent" r="50" cx="60" cy="60"/>
+            <circle id="today-progress-bar" class="progress-ring-fill" stroke="var(--neon-color)" stroke-width="8" fill="transparent" r="50" cx="60" cy="60" stroke-dasharray="314.16" stroke-dashoffset="314.16"/>
+          </svg>
+          <div class="progress-value">
+            <span id="progress-percent">0%</span>
+          </div>
+        </div>
+        <div class="progress-stats">
+          <h3 id="progress-summary-title">Progression Globale</h3>
+          <p id="progress-ratio">0 sur 0 activités complétées</p>
+        </div>
+      </div>
+
+      <!-- Today's Checklist -->
+      <div class="checklist-section">
+        <h3 id="checklist-title">Vos activités du jour</h3>
+        <div id="today-activities-list" class="activities-list">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. PLANNING / CALENDAR VIEW -->
+    <section id="view-planning" class="app-view">
+      <div class="planning-header">
+        <h2 id="planning-view-title">Planification</h2>
+        <button id="add-activity-btn" class="action-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <span id="btn-add-activity-text">Ajouter</span>
+        </button>
+      </div>
+
+      <!-- Custom Graphical Calendar Picker -->
+      <div class="calendar-card">
+        <div class="calendar-controls">
+          <button id="prev-month-btn" class="cal-nav-btn">&lt;</button>
+          <h3 id="calendar-month-year">Juillet 2026</h3>
+          <button id="next-month-btn" class="cal-nav-btn">&gt;</button>
+        </div>
+        <div class="calendar-weekdays">
+          <span>Lun</span><span>Mar</span><span>Mer</span><span>Jeu</span><span>Ven</span><span>Sam</span><span>Dim</span>
+        </div>
+        <div id="calendar-days-grid" class="calendar-days">
+          <!-- Dynamically populated days -->
+        </div>
+      </div>
+
+      <!-- Selected Date Activities list -->
+      <div class="selected-date-section">
+        <h3 id="selected-date-title">Activités pour le 13 Juillet 2026</h3>
+        <div id="selected-activities-list" class="activities-list">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. PROGRESS / ANALYTICS VIEW -->
+    <section id="view-progress" class="app-view">
+      <h2 id="stats-view-title">Statistiques</h2>
+      
+      <!-- Stats Dashboard Counters -->
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="stat-icon">🔥</div>
+          <div class="stat-info">
+            <span id="stat-streak-val" class="stat-number">0</span>
+            <p id="stat-streak-title">Série de jours</p>
+          </div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-icon">✅</div>
+          <div class="stat-info">
+            <span id="stat-total-val" class="stat-number">0</span>
+            <p id="stat-total-title">Total complétées</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Categories Chart -->
+      <div class="chart-card">
+        <h3 id="stats-categories-title">Completions par Catégorie</h3>
+        <div id="categories-chart-container" class="chart-bars-list">
+          <!-- Dynamically populated category progress bars -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. ASSISTANT / CHAT VIEW -->
+    <section id="view-assistant" class="app-view">
+      <div class="assistant-header">
+        <h2 id="assistant-view-title">Assistant IA</h2>
+        <div class="ai-status">
+          <span class="status-dot"></span>
+          <span id="ai-status-text">Gemini 1.5 Actif</span>
+        </div>
+      </div>
+
+      <!-- Message History Container -->
+      <div id="chat-messages-container" class="chat-container">
+        <!-- Dynamically populated chat log -->
+      </div>
+
+      <!-- Input Bar -->
+      <div class="chat-input-bar">
+        <textarea id="chat-input" rows="1" placeholder="Posez une question sur votre organisation..."></textarea>
+        <button id="send-chat-btn" class="chat-send-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- 5. PROFILE / SETTINGS VIEW -->
+    <section id="view-profile" class="app-view">
+      <h2 id="profile-view-title">Profil & Paramètres</h2>
+      
+      <!-- User Profile Settings Card -->
+      <div class="settings-card">
+        <h3 id="settings-user-title">Votre Pseudo</h3>
+        <div class="input-row">
+          <input type="text" id="username-input" placeholder="Driss" value="Driss">
+          <button id="save-username-btn" class="save-btn">OK</button>
+        </div>
+      </div>
+
+      <!-- Color Theme Accent customizer -->
+      <div class="settings-card">
+        <h3 id="settings-theme-title">Couleur de l'Application</h3>
+        <div class="theme-selection">
+          <button class="theme-color-option" data-color="#8a2be2" style="background: #8a2be2;"></button>
+          <button class="theme-color-option" data-color="#00ffcc" style="background: #00ffcc;"></button>
+          <button class="theme-color-option" data-color="#ff007f" style="background: #ff007f;"></button>
+          <button class="theme-color-option" data-color="#39ff14" style="background: #39ff14;"></button>
+          <button class="theme-color-option" data-color="#00bfff" style="background: #00bfff;"></button>
+          <!-- Custom Accent Color Picker -->
+          <div class="color-picker-wrapper">
+            <input type="color" id="global-accent-picker" class="theme-color-picker" value="#8a2be2">
+            <span class="picker-label">🎨 Custom</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI API Key Settings -->
+      <div class="settings-card">
+        <h3 id="settings-api-title">Clé API Google Gemini</h3>
+        <p class="settings-help-text" id="settings-api-desc">Entrez votre clé API gratuite Gemini 1.5 Flash pour activer le coach d'organisation IA.</p>
+        <div class="input-row">
+          <input type="password" id="gemini-key-input" placeholder="AIzaSy...">
+          <button id="save-key-btn" class="save-btn">OK</button>
+        </div>
+      </div>
+
+      <!-- App Reset / Backup -->
+      <div class="settings-card">
+        <h3 id="settings-danger-title">Options d'application</h3>
+        <div class="danger-buttons">
+          <button id="test-notif-btn" class="danger-btn secondary">🔔 Tester Notification</button>
+          <button id="reset-app-btn" class="danger-btn warning">⚠️ Réinitialiser l'application</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Dynamic Modal for Adding / Editing Activities -->
+  <div id="activity-modal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-activity-title">Nouvelle Activité</h3>
+        <button id="close-modal-btn" class="close-btn">&times;</button>
+      </div>
+      <form id="activity-form" class="modal-form" onsubmit="return false;">
+        <input type="hidden" id="edit-activity-id">
+        
+        <!-- Activity Name -->
+        <div class="form-group">
+          <label for="activity-name-input" id="lbl-act-name">Nom de l'activité</label>
+          <input type="text" id="activity-name-input" placeholder="Méditation, Musculation, Lecture..." required>
+        </div>
+
+        <!-- Custom Emoji Picker input -->
+        <div class="form-group">
+          <label id="lbl-act-emoji">Emoji représentatif</label>
+          <div class="emoji-picker-container">
+            <input type="text" id="activity-emoji-input" maxlength="2" placeholder="💪" value="💪" required>
+            <div id="emoji-quick-select" class="emoji-quick-list">
+              <span>💪</span><span>🧘</span><span>📚</span><span>🏃</span><span>💼</span><span>🥦</span><span>💧</span><span>🎨</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category -->
+        <div class="form-group">
+          <label for="activity-category-select" id="lbl-act-cat">Catégorie</label>
+          <select id="activity-category-select">
+            <option value="Health" id="opt-health">Santé & Bien-être</option>
+            <option value="Work" id="opt-work">Travail & Études</option>
+            <option value="Leisure" id="opt-leisure">Loisirs & Création</option>
+            <option value="Household" id="opt-household">Maison & Quotidien</option>
+          </select>
+        </div>
+
+        <!-- Activity Time -->
+        <div class="form-group">
+          <label for="activity-time-input" id="lbl-act-time">Heure de rappel</label>
+          <input type="time" id="activity-time-input" value="08:00" required>
+        </div>
+
+        <!-- Custom Color picker for activity indicator -->
+        <div class="form-group">
+          <label for="activity-color-input" id="lbl-act-color">Teinte de l'activité</label>
+          <div class="color-picker-input-wrapper">
+            <input type="color" id="activity-color-input" value="#8a2be2">
+          </div>
+        </div>
+
+        <!-- Scheduling Types Tab -->
+        <div class="form-group">
+          <label id="lbl-act-recurrence">Planification</label>
+          <div class="recurrence-type-selector">
+            <button type="button" id="recurrence-type-weekly" class="recur-btn active">Hebdomadaire</button>
+            <button type="button" id="recurrence-type-once" class="recur-btn">Date unique</button>
+          </div>
+        </div>
+
+        <!-- Weekly Days Selector (Active when Weekly is selected) -->
+        <div id="weekly-days-section" class="form-group active-recur-section">
+          <label id="lbl-act-days">Jours d'exécution</label>
+          <div class="weekday-checkboxes">
+            <button type="button" class="day-checkbox" data-day="Mon">Lun</button>
+            <button type="button" class="day-checkbox" data-day="Tue">Mar</button>
+            <button type="button" class="day-checkbox" data-day="Wed">Mer</button>
+            <button type="button" class="day-checkbox" data-day="Thu">Jeu</button>
+            <button type="button" class="day-checkbox" data-day="Fri">Ven</button>
+            <button type="button" class="day-checkbox" data-day="Sat">Sam</button>
+            <button type="button" class="day-checkbox" data-day="Sun">Dim</button>
+          </div>
+        </div>
+
+        <!-- Unique Date Selector (Active when Once is selected) -->
+        <div id="unique-date-section" class="form-group">
+          <label for="activity-date-input" id="lbl-act-date">Date de planification</label>
+          <input type="date" id="activity-date-input">
+        </div>
+
+        <!-- Form Actions -->
+        <div class="form-actions">
+          <button type="button" id="delete-activity-form-btn" class="form-btn danger-btn hide">Supprimer</button>
+          <button type="submit" id="submit-activity-btn" class="form-btn primary">Enregistrer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Bottom Navigation Tab Bar -->
+  <nav class="bottom-nav">
+    <button class="nav-item active" data-view="home">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      <span class="nav-label" id="tab-home">Aujourd'hui</span>
+    </button>
+    <button class="nav-item" data-view="planning">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+      <span class="nav-label" id="tab-planning">Calendrier</span>
+    </button>
+    <button class="nav-item" data-view="progress">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+      <span class="nav-label" id="tab-progress">Stats</span>
+    </button>
+    <button class="nav-item" data-view="assistant">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+      <span class="nav-label" id="tab-assistant">Coach IA</span>
+    </button>
+    <button class="nav-item" data-view="profile">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+      <span class="nav-label" id="tab-profile">Profil</span>
+    </button>
+  </nav>
+
+  <!-- PWA Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then(reg => console.log('[LifeFlow] Service Worker registered successfully with scope:', reg.scope))
+          .catch(err => console.error('[LifeFlow] Service Worker registration failed:', err));
+      });
+    }
+  </script>
+
+  <!-- Main JavaScript App Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
