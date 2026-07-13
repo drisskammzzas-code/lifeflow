@@ -205,6 +205,10 @@
             <span class="picker-label">🎨 Custom</span>
           </div>
         </div>
+        <!-- Custom RGB Canvas Color Wheel -->
+        <div class="color-wheel-wrapper">
+          <canvas id="rgb-wheel-canvas" width="180" height="180" class="color-wheel-canvas"></canvas>
+        </div>
       </div>
 
       <!-- AI API Key Settings -->
@@ -222,6 +226,7 @@
         <h3 id="settings-danger-title">Options d'application</h3>
         <div class="danger-buttons">
           <button id="test-notif-btn" class="danger-btn secondary">🔔 Tester Notification</button>
+          <button id="update-app-btn" class="danger-btn secondary">🔄 Recharger & Mettre à jour l'app</button>
           <button id="reset-app-btn" class="danger-btn warning">⚠️ Réinitialiser l'application</button>
         </div>
       </div>
@@ -278,6 +283,10 @@
           <label for="activity-color-input" id="lbl-act-color">Teinte de l'activité</label>
           <div class="color-picker-input-wrapper">
             <input type="color" id="activity-color-input" value="#8a2be2">
+          </div>
+          <!-- Custom RGB Canvas Color Wheel inside modal -->
+          <div class="color-wheel-wrapper">
+            <canvas id="modal-rgb-wheel-canvas" width="150" height="150" class="color-wheel-canvas"></canvas>
           </div>
         </div>
 

@@ -1392,3 +1392,26 @@ body {
   color: #ef4444;
   background: rgba(239, 68, 68, 0.1);
 }
+
+.color-wheel-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.015);
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--card-border);
+}
+
+.color-wheel-canvas {
+  cursor: crosshair;
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5), 0 0 8px rgba(255, 255, 255, 0.05);
+  transition: transform 0.2s ease;
+  touch-action: none; /* Prevent scrolling when dragging on mobile */
+}
+
+.color-wheel-canvas:active {
+  transform: scale(1.02);
+}

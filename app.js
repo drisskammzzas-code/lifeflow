@@ -1074,6 +1074,27 @@ function initProfileTab() {
   // Notification Test trigger
   testNotifBtn.addEventListener('click', requestAndTriggerNotification);
 
+  // App Update / Cache Clear
+  const updateBtn = document.getElementById('update-app-btn');
+  if (updateBtn) {
+    updateBtn.addEventListener('click', () => {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(registrations => {
+          for (let registration of registrations) {
+            registration.unregister();
+          }
+        });
+      }
+      caches.keys().then(names => {
+        for (let name of names) {
+          caches.delete(name);
+        }
+      }).then(() => {
+        location.reload(true);
+      });
+    });
+  }
+
   // App Reset
   resetBtn.addEventListener('click', () => {
     const dict = TRANSLATIONS[appState.settings.lang];
@@ -1209,7 +1230,132 @@ function deleteTodo(index) {
   renderTodoList();
 }
 
-// 14. Application Boot Loader
+// 14. Custom RGB Canvas Color Wheel
+function drawColorWheel(canvasId) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const width = canvas.width;
+  const height = canvas.height;
+  const cx = width / 2;
+  const cy = height / 2;
+  const r = width / 2 - 5; // padding
+
+  const imageData = ctx.createImageData(width, height);
+  const data = imageData.data;
+
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const dx = x - cx;
+      const dy = y - cy;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (dist <= r) {
+        let angle = Math.atan2(dy, dx);
+        if (angle < 0) angle += 2 * Math.PI;
+
+        const hue = (angle / (2 * Math.PI)) * 360;
+        const saturation = dist / r;
+        const rgb = hslToRgb(hue, saturation, 0.5);
+
+        const idx = (y * width + x) * 4;
+        data[idx] = rgb[0];
+        data[idx + 1] = rgb[1];
+        data[idx + 2] = rgb[2];
+        data[idx + 3] = 255;
+      }
+    }
+  }
+  ctx.putImageData(imageData, 0, 0);
+}
+
+function hslToRgb(h, s, l) {
+  let r, g, b;
+  h /= 360;
+  if (s == 0) {
+    r = g = b = l; // achromatic
+  } else {
+    const hue2rgb = (p, q, t) => {
+      if (t < 0) t += 1;
+      if (t > 1) t -= 1;
+      if (t < 1/6) return p + (q - p) * 6 * t;
+      if (t < 1/2) return q;
+      if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+      return p;
+    };
+    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+    const p = 2 * l - q;
+    r = hue2rgb(p, q, h + 1/3);
+    g = hue2rgb(p, q, h);
+    b = hue2rgb(p, q, h - 1/3);
+  }
+  return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+}
+
+function handleColorWheelClick(e, canvasId, callback) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  const rect = canvas.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  const ctx = canvas.getContext('2d');
+  
+  const imgData = ctx.getImageData(x, y, 1, 1).data;
+  if (imgData[3] > 0) {
+    const hex = rgbToHex(imgData[0], imgData[1], imgData[2]);
+    callback(hex);
+  }
+}
+
+function rgbToHex(r, g, b) {
+  return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+}
+
+function initColorWheel(canvasId, callback) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  
+  drawColorWheel(canvasId);
+  
+  let isDragging = false;
+  
+  const handleEvent = (e) => {
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    handleColorWheelClick({ clientX, clientY }, canvasId, callback);
+  };
+  
+  canvas.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    handleEvent(e);
+  });
+  
+  canvas.addEventListener('mousemove', (e) => {
+    if (isDragging) handleEvent(e);
+  });
+  
+  window.addEventListener('mouseup', () => {
+    isDragging = false;
+  });
+  
+  canvas.addEventListener('touchstart', (e) => {
+    isDragging = true;
+    handleEvent(e);
+  });
+  
+  canvas.addEventListener('touchmove', (e) => {
+    if (isDragging) {
+      e.preventDefault();
+      handleEvent(e);
+    }
+  });
+  
+  canvas.addEventListener('touchend', () => {
+    isDragging = false;
+  });
+}
+
+// 15. Application Boot Loader
 window.addEventListener('DOMContentLoaded', () => {
   loadState();
   initNavigation();
@@ -1217,6 +1363,15 @@ window.addEventListener('DOMContentLoaded', () => {
   initChatCoach();
   initProfileTab();
   initTodoList();
+  
+  // Initialize custom RGB color wheels
+  initColorWheel('rgb-wheel-canvas', (color) => {
+    applyThemeColor(color);
+  });
+  
+  initColorWheel('modal-rgb-wheel-canvas', (color) => {
+    document.getElementById('activity-color-input').value = color;
+  });
   
   // Boot settings
   applyThemeColor(appState.settings.themeColor);
