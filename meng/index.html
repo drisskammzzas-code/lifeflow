@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Présentation Projets R&D & Électrotechnique — Driss KAMMOURI ALAMI | MENG SAS</title>
+    <style>
+        :root {
+            --bg-primary: #0a0f1d;
+            --bg-card: #151f32;
+            --bg-card-hover: #1c2b45;
+            --accent-blue: #3b82f6;
+            --accent-cyan: #06b6d4;
+            --accent-gold: #f59e0b;
+            --border-color: #24344d;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Top Header */
+        .header-bar {
+            background: rgba(10, 15, 29, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .company-pill {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--accent-gold);
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .header-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.2px;
+        }
+
+        .slide-counter {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 4px 14px;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        /* Slide Container */
+        .slide-container {
+            flex: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 25px 45px;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            transform: translateY(8px);
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .slide-title-wrap {
+            display: flex;
+            align-items: baseline;
+            gap: 15px;
+            margin-bottom: 18px;
+            border-bottom: 2px solid var(--accent-blue);
+            padding-bottom: 8px;
+            width: 100%;
+        }
+
+        .slide-title {
+            font-size: 1.65rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .slide-subtitle {
+            font-size: 0.95rem;
+            color: var(--accent-cyan);
+            font-weight: 500;
+        }
+
+        .content-layout {
+            display: grid;
+            grid-template-columns: 0.9fr 1.35fr;
+            gap: 22px;
+            height: calc(100% - 60px);
+            align-items: center;
+        }
+
+        .content-layout-hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: calc(100% - 50px);
+            max-width: 950px;
+            margin: 0 auto;
+        }
+
+        /* Cards & Styling */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 22px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.15);
+            color: #60a5fa;
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            align-self: flex-start;
+        }
+
+        .badge-meng {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--accent-gold);
+            border-color: rgba(245, 158, 11, 0.4);
+        }
+
+        ul.tech-list {
+            list-style: none;
+        }
+
+        ul.tech-list li {
+            margin-bottom: 11px;
+            font-size: 0.96rem;
+            color: #cbd5e1;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            line-height: 1.45;
+        }
+
+        ul.tech-list li strong {
+            color: #ffffff;
+        }
+
+        ul.tech-list li::before {
+            content: "▸";
+            color: var(--accent-blue);
+            font-weight: bold;
+            font-size: 1.1rem;
+            line-height: 1.2;
+        }
+
+        .highlight-box {
+            background: rgba(59, 130, 246, 0.08);
+            border-left: 3px solid var(--accent-blue);
+            padding: 10px 14px;
+            margin-top: 14px;
+            border-radius: 0 6px 6px 0;
+            font-size: 0.88rem;
+            color: #e2e8f0;
+            line-height: 1.4;
+        }
+
+        /* Gallery Containers */
+        .gallery-container {
+            display: flex;
+            gap: 12px;
+            height: 100%;
+            max-height: 540px;
+            width: 100%;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            height: 100%;
+            max-height: 540px;
+            width: 100%;
+        }
+
+        .img-card {
+            flex: 1;
+            height: 100%;
+            max-height: 540px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            background: #020617;
+            position: relative;
+            cursor: pointer;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .img-card:hover {
+            border-color: var(--accent-blue);
+            transform: scale(1.01);
+        }
+
+        .img-card img, .img-card video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background-color: #020617;
+        }
+
+        .img-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 15, 29, 0.92);
+            backdrop-filter: blur(4px);
+            padding: 8px 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #e2e8f0;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .zoom-hint {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        /* Navigation Controls */
+        .nav-controls {
+            position: absolute;
+            bottom: 18px;
+            right: 35px;
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .nav-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: #fff;
+            padding: 8px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .nav-btn:hover {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Hero Typography */
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--accent-cyan);
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .pill-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 14px;
+        }
+
+        .pill {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            color: #cbd5e1;
+            font-weight: 600;
+        }
+
+        .pill-gold {
+            border-color: rgba(245, 158, 11, 0.4);
+            color: #fde68a;
+        }
+
+        /* Modal Lightbox */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal img, .modal video {
+            max-width: 92vw;
+            max-height: 90vh;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+        }
+
+        .close-modal-btn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: var(--bg-card);
+            color: #fff;
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            z-index: 1001;
+        }
+
+        .close-modal-btn:hover {
+            background: var(--accent-blue);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-bar">
+        <div class="header-left">
+            <div class="company-pill">Entretien MENG SAS</div>
+            <div class="header-title">Driss KAMMOURI ALAMI — Réalisations Électrotechniques & Prototypage R&D</div>
+        </div>
+        <div class="slide-counter" id="slideNum">Slide 1 / 4</div>
+    </div>
+
+    <div class="slide-container">
+
+        <!-- SLIDE 1: HERO TITLE / PROFIL & ADÉQUATION MENG -->
+        <div class="slide active" id="slide-1">
+            <div class="content-layout-hero">
+                <div class="badge">B.U.T. GEII (Mulhouse) & Master 1 SETIA (UHA)</div>
+                <h1 class="hero-title">Portfolio Projets R&D, Puissance & Machines Tournantes</h1>
+                <p class="hero-subtitle">Conception Hardware, Électronique de Puissance, Contrôle Moteurs & Bancs d'Essai</p>
+                
+                <div class="card" style="height: auto;">
+                    <ul class="tech-list">
+                        <li><strong>Profil Candidat :</strong> Titulaire du B.U.T. GEII (IUT de Mulhouse), admis en Master 1 SETIA (Systèmes Embarqués & IA). 21 ans, véhicule personnel, basé à Bollwiller (~20 min de Rixheim).</li>
+                        <li><strong>Socle Électrotechnique & Puissance :</strong> Dimensionnement de circuits, commande de moteurs (CC, Pas-à-Pas, variateurs H-Bridge jusqu'à 43A), alimentations stabilisées, bus industriels (Bus CAN, UART, SPI, I2C).</li>
+                        <li><strong>Valeur Ajoutée pour MENG SAS :</strong> Pont direct entre l'atelier (câblage, bobinage, révision moteurs, tenue diélectrique) et le Bureau d'Études (calculs, bancs d'essai automatisés, acquisition capteurs et PV informatisés).</li>
+                    </ul>
+                    <div class="pill-group">
+                        <div class="pill pill-gold">Fabrication Transformateurs & Bobinages Spéciaux</div>
+                        <div class="pill pill-gold">Maintenance Machines Tournantes & Moteurs ATEX</div>
+                        <div class="pill">Variateurs de Vitesse & Commande PWM</div>
+                        <div class="pill">Bancs d'Essai & Mesures Électriques</div>
+                        <div class="pill">Régulation PID Temps Réel</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: ENVIRONNEMENT DE CONCEPTION & LABO ATELIER -->
+        <div class="slide" id="slide-2">
+            <div class="slide-title-wrap">
+                <div class="slide-title">01. Environnement de Travail & Banc de Prototypage</div>
+                <div class="slide-subtitle">Atelier personnel d'essais électriques & câblage</div>
+            </div>
+            <div class="content-layout">
+                <div class="card">
+                    <div class="badge">Rigueur Atelier & Laboratoire</div>
+                    <h2 style="font-size: 1.2rem; margin-bottom: 14px; color: #fff;">Poste d'Essais Électrotechniques & Prototypage</h2>
+                    <ul class="tech-list">
+                        <li><strong>Poste de Câblage & Mesures :</strong> Station de soudure régulée, platines d'essais, multimètres et instrumentation de mesure pour qualification de signaux.</li>
+                        <li><strong>Alimentations Stabilisées & Puissance :</strong> Banc d'alimentation DC/AC pour essais de moteurs, convertisseurs et cartes de régulation sous contrainte de courant.</li>
+                        <li><strong>CAO 3D & Prototypage Rapide :</strong> Modélisation de supports de bobinage, carters de protection et pièces structurelles sur SolidWorks & Impression 3D.</li>
+                        <li><strong>Développement Contrôle-Commande :</strong> Programmation C/C++ sur microcontrôleurs (STM32, ESP32, Arduino) pour pilotage et régulation de puissance.</li>
+                    </ul>
+                    <div class="highlight-box">
+                        <strong>Transposition MENG SAS :</strong> Habitude du travail manuel soigné en atelier, respect strict des règles de sécurité électrique et rigueur dans le câblage de composants magnétiques.
+                    </div>
+                </div>
+                <div class="gallery-container">
+                    <div class="img-card" onclick="openModal(this)">
+                        <img src="img_meng/30839e95-cbe1-4d7f-a7e7-8b0f5287fe83.jfif" alt="Poste Électronique de Prototypage">
+                        <div class="img-caption">
+                            <span>Poste de Câblage & Prototypage</span>
+                            <span class="zoom-hint">Cliquer pour zoomer</span>
+                        </div>
+                    </div>
+                    <div class="img-card" onclick="openModal(this)">
+                        <img src="img_meng/3513afae-4af7-4faf-9273-4e5af62689bf.jfif" alt="Espace de Test & Assemblage">
+                        <div class="img-caption">
+                            <span>Banc de Tests & Mesures</span>
+                            <span class="zoom-hint">Cliquer pour zoomer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: COMMANDE DE MOTEURS & VARIATEURS DE PUISSANCE -->
+        <div class="slide" id="slide-3">
+            <div class="slide-title-wrap">
+                <div class="slide-title">02. Système Électrotechnique & Commande de Moteurs</div>
+                <div class="slide-subtitle">Architecture de Puissance, Variateurs H-Bridge & Pilotage « AceLaunch »</div>
+            </div>
+            <div class="content-layout">
+                <div class="card">
+                    <div class="badge badge-meng">Machines Tournantes & Puissance</div>
+                    <h2 style="font-size: 1.15rem; margin-bottom: 12px; color: #fff;">Conception Électrotechnique Complète :</h2>
+                    <ul class="tech-list">
+                        <li><strong>Étages de Puissance & Moteurs :</strong> Commande de moteurs continus à fort couple et moteurs pas-à-pas. Gestion des courants d'appel et découplage inductif.</li>
+                        <li><strong>Variateurs de Vitesse & H-Bridge :</strong> Intégration de variateurs industriels IBT-2 (43A, isolation optocouplée) et drivers pas-à-pas TB6600 avec régulation Buck LM2596 (24V→5V).</li>
+                        <li><strong>Architecture Électrique Sécurisée :</strong> Séparation nette entre circuit de commande (5V/3.3V) et circuit de puissance (24V), protection thermique et fusibles calibrés.</li>
+                        <li><strong>Pilotage & Télémétrie :</strong> Contrôle microcontrôleur temps réel, liaison série UART et Dashboard de supervision à distance.</li>
+                    </ul>
+                    <div class="highlight-box">
+                        <strong>Lien direct MENG :</strong> Maîtrise des problématiques réelles de variateurs de fréquence, de pilotage de moteurs électriques et d'échauffement thermique.
+                    </div>
+                </div>
+                <div class="gallery-grid">
+                    <div class="img-card" onclick="openModal(this)">
+                        <img src="img_meng/media_1788483466689.png" alt="Modèle 3D CAO 3 Blocs">
+                        <div class="img-caption">
+                            <span>Modélisation 3D CAO</span>
+                            <span class="zoom-hint">Zoom</span>
+                        </div>
+                    </div>
+                    <div class="img-card" onclick="openModal(this)">
+                        <img src="img_meng/architecture_electronique_complete.png" alt="Schéma d'Architecture Puissance & Commande">
+                        <div class="img-caption">
+                            <span>Schéma Puissance & Commande</span>
+                            <span class="zoom-hint">Zoom</span>
+                        </div>
+                    </div>
+                    <div class="img-card" onclick="openModal(this)">
+                        <img src="img_meng/interface_web.png" alt="Dashboard de Pilotage et Télémétrie">
+                        <div class="img-caption">
+                            <span>Supervision / IHM de Pilotage</span>
+                            <span class="zoom-hint">Zoom</span>
+                        </div>
+                    </div>
+                    <div class="img-card" onclick="openModal(this)">
+                        <video controls id="inlineVideo" style="width: 100%; height: 100%; object-fit: cover;">
+                            <source src="img_meng/Démonstration_Prototype2_Final.mov" type="video/mp4">
+                            Votre navigateur ne supporte pas la vidéo.
+                        </video>
+                        <div class="img-caption">
+                            <span>Vidéo Démo Prototype en Action</span>
+                            <span class="zoom-hint">Lire</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: RÉGULATION PID TEMPS RÉEL & BANCS D'ESSAI -->
+        <div class="slide" id="slide-4">
+            <div class="slide-title-wrap">
+                <div class="slide-title">03. Régulation PID Temps Réel & Bancs d'Essai</div>
+                <div class="slide-subtitle">Instrumentation, acquisition capteurs et automatisation de mesures</div>
+            </div>
+            <div class="content-layout">
+                <div class="card">
+                    <div class="badge">Instrumentation & Contrôle Avancé</div>
+                    <h2 style="font-size: 1.2rem; margin-bottom: 14px; color: #fff;">Asservissement & Traitement de Données</h2>
+                    <ul class="tech-list">
+                        <li><strong>Asservissement PID en Boucle Fermée :</strong> Implémentation logicielle d'un correcteur PID complet (Kp, Ki, Kd) pour correction dynamique instantanée de consigne.</li>
+                        <li><strong>Acquisition Capteurs en Temps Réel :</strong> Mesure de grandeurs physiques (vitesse, position, seuils optiques ROI, ultrasons), filtrage de bruit et conversion analogique/numérique.</li>
+                        <li><strong>Plateforme Mobile Autonome (3ème Année B.U.T.) :</strong> Intégration mécatronique globale : gestion d'accumulateurs Li-ion, ponts de puissance, sécurité machine et coupure d'urgence.</li>
+                        <li><strong>Dashboard de Monitoring :</strong> Visualisation graphique des écarts de consigne, réglage des gains en temps réel et historisation des mesures.</li>
+                    </ul>
+                    <div class="highlight-box">
+                        <strong>Atout pour MENG SAS :</strong> Capacité à automatiser des bancs d'essai de transformateurs et moteurs (relevé automatique de courbes de saturation, pertes fer/cuivre, tenue diélectrique, rapports de test informatisés).
+                    </div>
+                </div>
+                <div class="gallery-container">
+                    <div class="img-card" onclick="openModal(this)">
+                        <img src="img_meng/97b7dd19-25eb-4fa2-a109-078019bc1228.jfif" alt="Prototype Mobile 3ème Année B.U.T.">
+                        <div class="img-caption">
+                            <span>Prototype Autonome & Carte de Contrôle</span>
+                            <span class="zoom-hint">Cliquer pour zoomer</span>
+                        </div>
+                    </div>
+                    <div class="img-card" style="flex: 1.2;" onclick="openModal(this)">
+                        <img src="img_meng/media_1788483424173.png" alt="Dashboard Régulation PID & Acquisition Capteurs">
+                        <div class="img-caption">
+                            <span>Dashboard Acquisition & Régulation PID</span>
+                            <span class="zoom-hint">Cliquer pour zoomer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Navigation Footer -->
+    <div class="nav-controls">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">❮ Précédent</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Suivant ❯</button>
+    </div>
+
+    <!-- Modal Zoom / Lightbox -->
+    <div class="modal" id="imgModal" onclick="closeModalOnBg(event)">
+        <button class="close-modal-btn" onclick="closeModal()">✕ Fermer (Échap)</button>
+        <img id="modalImg" src="" alt="Image Agrandie" style="display: none;">
+        <video id="modalVideo" controls style="display: none; width: 90vw; height: 85vh; object-fit: contain;">
+            <source src="img_meng/Démonstration_Prototype2_Final.mov" type="video/mp4">
+        </video>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 4;
+
+        function updateSlide() {
+            document.querySelectorAll('.slide').forEach((slide, idx) => {
+                if (idx + 1 === currentSlide) {
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.remove('active');
+                }
+            });
+            document.getElementById('slideNum').innerText = `Slide ${currentSlide} / ${totalSlides}`;
+            
+            // Manage inline video playback on slide 3
+            const inlineVideo = document.getElementById('inlineVideo');
+            if (inlineVideo && currentSlide !== 3) {
+                inlineVideo.pause();
+            }
+        }
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+            if (currentSlide < 1) currentSlide = totalSlides;
+            if (currentSlide > totalSlides) currentSlide = 1;
+            updateSlide();
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                changeSlide(1);
+            } else if (e.key === 'ArrowLeft') {
+                changeSlide(-1);
+            } else if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Lightbox Modal
+        function openModal(card) {
+            const modal = document.getElementById('imgModal');
+            const modalImg = document.getElementById('modalImg');
+            const modalVideo = document.getElementById('modalVideo');
+            
+            const img = card.querySelector('img');
+            const video = card.querySelector('video');
+
+            if (img) {
+                modalImg.src = img.src;
+                modalImg.style.display = 'block';
+                modalVideo.style.display = 'none';
+                modalVideo.pause();
+            } else if (video) {
+                modalImg.style.display = 'none';
+                modalVideo.style.display = 'block';
+                modalVideo.play();
+            }
+
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imgModal');
+            const modalVideo = document.getElementById('modalVideo');
+            modal.style.display = 'none';
+            if (modalVideo) modalVideo.pause();
+        }
+
+        function closeModalOnBg(e) {
+            if (e.target.id === 'imgModal') {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
