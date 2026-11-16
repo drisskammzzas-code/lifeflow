@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Présentation Projets R&D & Électrotechnique — Driss KAMMOURI ALAMI | MENG SAS</title>
+    <title>Ingénieur Systèmes Embarqués & Firmware — Driss KAMMOURI ALAMI | MENG SAS</title>
     <style>
         :root {
             --bg-primary: #0a0f1d;
@@ -12,6 +12,7 @@
             --accent-blue: #3b82f6;
             --accent-cyan: #06b6d4;
             --accent-gold: #f59e0b;
+            --accent-green: #10b981;
             --border-color: #24344d;
             --text-primary: #f8fafc;
             --text-secondary: #94a3b8;
@@ -51,10 +52,10 @@
             gap: 15px;
         }
 
-        .company-pill {
-            background: rgba(245, 158, 11, 0.15);
-            color: var(--accent-gold);
-            border: 1px solid rgba(245, 158, 11, 0.4);
+        .target-pill {
+            background: rgba(6, 182, 212, 0.15);
+            color: var(--accent-cyan);
+            border: 1px solid rgba(6, 182, 212, 0.4);
             padding: 4px 12px;
             border-radius: 6px;
             font-size: 0.8rem;
@@ -115,7 +116,7 @@
             align-items: baseline;
             gap: 15px;
             margin-bottom: 18px;
-            border-bottom: 2px solid var(--accent-blue);
+            border-bottom: 2px solid var(--accent-cyan);
             padding-bottom: 8px;
             width: 100%;
         }
@@ -145,7 +146,7 @@
             flex-direction: column;
             justify-content: center;
             height: calc(100% - 50px);
-            max-width: 950px;
+            max-width: 960px;
             margin: 0 auto;
         }
 
@@ -164,9 +165,9 @@
 
         .badge {
             display: inline-block;
-            background: rgba(59, 130, 246, 0.15);
-            color: #60a5fa;
-            border: 1px solid rgba(59, 130, 246, 0.4);
+            background: rgba(6, 182, 212, 0.15);
+            color: var(--accent-cyan);
+            border: 1px solid rgba(6, 182, 212, 0.4);
             padding: 4px 10px;
             border-radius: 4px;
             font-size: 0.8rem;
@@ -176,10 +177,10 @@
             align-self: flex-start;
         }
 
-        .badge-meng {
-            background: rgba(245, 158, 11, 0.15);
-            color: var(--accent-gold);
-            border-color: rgba(245, 158, 11, 0.4);
+        .badge-firmware {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            border-color: rgba(16, 185, 129, 0.4);
         }
 
         ul.tech-list {
@@ -202,15 +203,15 @@
 
         ul.tech-list li::before {
             content: "▸";
-            color: var(--accent-blue);
+            color: var(--accent-cyan);
             font-weight: bold;
             font-size: 1.1rem;
             line-height: 1.2;
         }
 
         .highlight-box {
-            background: rgba(59, 130, 246, 0.08);
-            border-left: 3px solid var(--accent-blue);
+            background: rgba(6, 182, 212, 0.08);
+            border-left: 3px solid var(--accent-cyan);
             padding: 10px 14px;
             margin-top: 14px;
             border-radius: 0 6px 6px 0;
@@ -251,7 +252,7 @@
         }
 
         .img-card:hover {
-            border-color: var(--accent-blue);
+            border-color: var(--accent-cyan);
             transform: scale(1.01);
         }
 
@@ -308,9 +309,10 @@
         }
 
         .nav-btn:hover {
-            background: var(--accent-blue);
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+            background: var(--accent-cyan);
+            border-color: var(--accent-cyan);
+            color: #0a0f1d;
+            box-shadow: 0 0 10px rgba(6, 182, 212, 0.4);
         }
 
         /* Hero Typography */
@@ -346,9 +348,14 @@
             font-weight: 600;
         }
 
-        .pill-gold {
-            border-color: rgba(245, 158, 11, 0.4);
-            color: #fde68a;
+        .pill-cyan {
+            border-color: rgba(6, 182, 212, 0.4);
+            color: #a5f3fc;
+        }
+
+        .pill-green {
+            border-color: rgba(16, 185, 129, 0.4);
+            color: #6ee7b7;
         }
 
         /* Modal Lightbox */
@@ -390,7 +397,8 @@
         }
 
         .close-modal-btn:hover {
-            background: var(--accent-blue);
+            background: var(--accent-cyan);
+            color: #0a0f1d;
         }
     </style>
 </head>
@@ -398,70 +406,71 @@
 
     <div class="header-bar">
         <div class="header-left">
-            <div class="company-pill">Entretien MENG SAS</div>
-            <div class="header-title">Driss KAMMOURI ALAMI — Réalisations Électrotechniques & Prototypage R&D</div>
+            <div class="target-pill">Cible : Systèmes Embarqués</div>
+            <div class="header-title">Driss KAMMOURI ALAMI — Portfolio Firmware C/C++, Microcontrôleurs & IoT</div>
         </div>
         <div class="slide-counter" id="slideNum">Slide 1 / 4</div>
     </div>
 
     <div class="slide-container">
 
-        <!-- SLIDE 1: HERO TITLE / PROFIL & ADÉQUATION MENG -->
+        <!-- SLIDE 1: HERO TITLE / SYSTÈMES EMBARQUÉS PRIORITÉ ABSOLUE -->
         <div class="slide active" id="slide-1">
             <div class="content-layout-hero">
-                <div class="badge">B.U.T. GEII (Mulhouse) & Master 1 SETIA (UHA)</div>
-                <h1 class="hero-title">Portfolio Projets R&D, Puissance & Machines Tournantes</h1>
-                <p class="hero-subtitle">Conception Hardware, Électronique de Puissance, Contrôle Moteurs & Bancs d'Essai</p>
+                <div class="badge badge-firmware">Spécialisation Ingénierie Embarquée</div>
+                <h1 class="hero-title">Ingénieur Systèmes Embarqués & Firmware C/C++</h1>
+                <p class="hero-subtitle">Microcontrôleurs (STM32, ESP32, ARM Cortex), Bus Industriels (CAN, UART, SPI, I2C) & Contrôle Temps Réel</p>
                 
                 <div class="card" style="height: auto;">
                     <ul class="tech-list">
-                        <li><strong>Profil Candidat :</strong> Titulaire du B.U.T. GEII (IUT de Mulhouse), admis en Master 1 SETIA (Systèmes Embarqués & IA). 21 ans, véhicule personnel, basé à Bollwiller (~20 min de Rixheim).</li>
-                        <li><strong>Socle Électrotechnique & Puissance :</strong> Dimensionnement de circuits, commande de moteurs (CC, Pas-à-Pas, variateurs H-Bridge jusqu'à 43A), alimentations stabilisées, bus industriels (Bus CAN, UART, SPI, I2C).</li>
-                        <li><strong>Valeur Ajoutée pour MENG SAS :</strong> Pont direct entre l'atelier (câblage, bobinage, révision moteurs, tenue diélectrique) et le Bureau d'Études (calculs, bancs d'essai automatisés, acquisition capteurs et PV informatisés).</li>
+                        <li><strong>Profil & Ambition :</strong> Titulaire du B.U.T. GEII (IUT de Mulhouse) et admis en <strong>Master 1 SETIA (Systèmes Embarqués & Technologies d'IA)</strong> à l'UHA. 21 ans, véhiculé, basé à Bollwiller (~20 min de Rixheim).</li>
+                        <li><strong>Cœur de Compétences Embarqué :</strong> Développement bas-niveau en <strong>C/C++</strong>, gestion des interruptions, FreeRTOS, registres matériels, protocoles de communication série et bus de terrain.</li>
+                        <li><strong>Projet d'Alternance (12 à 24 mois) :</strong> Mettre mes compétences logicielles et matérielles au service de l'ingénierie embarquée : conception de cartes électroniques intelligentes, automatisation de bancs d'essai instrumentés, télémesure et diagnostic connecté d'équipements industriels.</li>
                     </ul>
                     <div class="pill-group">
-                        <div class="pill pill-gold">Fabrication Transformateurs & Bobinages Spéciaux</div>
-                        <div class="pill pill-gold">Maintenance Machines Tournantes & Moteurs ATEX</div>
-                        <div class="pill">Variateurs de Vitesse & Commande PWM</div>
-                        <div class="pill">Bancs d'Essai & Mesures Électriques</div>
-                        <div class="pill">Régulation PID Temps Réel</div>
+                        <div class="pill pill-cyan">Développement C / C++ Temps Réel</div>
+                        <div class="pill pill-cyan">Architecture STM32 / ESP32 / ARM</div>
+                        <div class="pill pill-green">Bus CAN (J1939) / UART / SPI / I2C</div>
+                        <div class="pill pill-green">FreeRTOS & OS Embarqués</div>
+                        <div class="pill">IoT Industriel & Télémétrie</div>
+                        <div class="pill">Conception Hardware & Cartes Électroniques</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 2: ENVIRONNEMENT DE CONCEPTION & LABO ATELIER -->
+        <!-- SLIDE 2: ENVIRONNEMENT D'EXPÉRIMENTATION EMBARQUÉ & LABO -->
         <div class="slide" id="slide-2">
             <div class="slide-title-wrap">
-                <div class="slide-title">01. Environnement de Travail & Banc de Prototypage</div>
-                <div class="slide-subtitle">Atelier personnel d'essais électriques & câblage</div>
+                <div class="slide-title">01. Banc de Test & Développement Électronique Embarqué</div>
+                <div class="slide-subtitle">Laboratoire personnel : programmation microcontrôleurs, sondes logiques & mesure de signaux</div>
             </div>
             <div class="content-layout">
                 <div class="card">
-                    <div class="badge">Rigueur Atelier & Laboratoire</div>
-                    <h2 style="font-size: 1.2rem; margin-bottom: 14px; color: #fff;">Poste d'Essais Électrotechniques & Prototypage</h2>
+                    <div class="badge">Laboratoire de Conception Hardware/Firmware</div>
+                    <h2 style="font-size: 1.2rem; margin-bottom: 14px; color: #fff;">Poste de Prototypage & Debug Embarqué</h2>
                     <ul class="tech-list">
-                        <li><strong>Poste de Câblage & Mesures :</strong> Station de soudure régulée, platines d'essais, multimètres et instrumentation de mesure pour qualification de signaux.</li>
-                        <li><strong>Alimentations Stabilisées & Puissance :</strong> Banc d'alimentation DC/AC pour essais de moteurs, convertisseurs et cartes de régulation sous contrainte de courant.</li>
-                        <li><strong>CAO 3D & Prototypage Rapide :</strong> Modélisation de supports de bobinage, carters de protection et pièces structurelles sur SolidWorks & Impression 3D.</li>
-                        <li><strong>Développement Contrôle-Commande :</strong> Programmation C/C++ sur microcontrôleurs (STM32, ESP32, Arduino) pour pilotage et régulation de puissance.</li>
+                        <li><strong>Développement Firmware C/C++ :</strong> Programmation sous VS Code / PlatformIO / STM32CubeIDE, flashage et débogage JTAG/SWD sur microcontrôleurs cibles.</li>
+                        <li><strong>Analyse de Signaux & Bus :</strong> Qualification des trames de communication (oscilloscope, analyseur logique sur signaux SPI/I2C/UART/CAN) et décodage de protocoles.</li>
+                        <li><strong>Intégration Hardware & Cartes de Commande :</strong> Câblage de circuits imprimés, adaptation de niveaux logiques (3.3V ↔ 5V), filtrage CEM et régulation d'alimentation DC.</li>
+                        <li><strong>Modélisation 3D pour Boîtiers & Intégration :</strong> Conception SolidWorks et impression 3D de supports et boîtiers pour cartes électroniques embarquées.</li>
                     </ul>
                     <div class="highlight-box">
-                        <strong>Transposition MENG SAS :</strong> Habitude du travail manuel soigné en atelier, respect strict des règles de sécurité électrique et rigueur dans le câblage de composants magnétiques.
+                        <strong>Atout Concret :</strong> Capacité à concevoir la carte physique, développer le firmware bas-niveau et valider le fonctionnement sur banc de mesure avec oscilloscope.
                     </div>
                 </div>
                 <div class="gallery-container">
                     <div class="img-card" onclick="openModal(this)">
-                        <img src="img_meng/30839e95-cbe1-4d7f-a7e7-8b0f5287fe83.jfif" alt="Poste Électronique de Prototypage">
+                        <img src="img_meng/30839e95-cbe1-4d7f-a7e7-8b0f5287fe83.jfif" alt="Poste de Développement Électronique & Firmware">
                         <div class="img-caption">
-                            <span>Poste de Câblage & Prototypage</span>
+                            <span>Poste de Câblage & Debug Firmware</span>
                             <span class="zoom-hint">Cliquer pour zoomer</span>
                         </div>
                     </div>
                     <div class="img-card" onclick="openModal(this)">
-                        <img src="img_meng/3513afae-4af7-4faf-9273-4e5af62689bf.jfif" alt="Espace de Test & Assemblage">
+                        <img src="img_meng/3513afae-4af7-4faf-9273-4e5af62689bf.jfif" alt="Banc d'Essai & Mesures">
                         <div class="img-caption">
-                            <span>Banc de Tests & Mesures</span>
+                            <span>Banc de Tests & Validation Signaux</span>
                             <span class="zoom-hint">Cliquer pour zoomer</span>
                         </div>
                     </div>
@@ -469,45 +478,45 @@
             </div>
         </div>
 
-        <!-- SLIDE 3: COMMANDE DE MOTEURS & VARIATEURS DE PUISSANCE -->
+        <!-- SLIDE 3: SYSTÈME EMBARQUÉ TEMPS RÉEL ACELAUNCH -->
         <div class="slide" id="slide-3">
             <div class="slide-title-wrap">
-                <div class="slide-title">02. Système Électrotechnique & Commande de Moteurs</div>
-                <div class="slide-subtitle">Architecture de Puissance, Variateurs H-Bridge & Pilotage « AceLaunch »</div>
+                <div class="slide-title">02. Architecture Embarquée Temps Réel & Puissance « AceLaunch »</div>
+                <div class="slide-subtitle">Contrôle-commande multi-actionneurs, timers matériels et liaison série bidirectionnelle</div>
             </div>
             <div class="content-layout">
                 <div class="card">
-                    <div class="badge badge-meng">Machines Tournantes & Puissance</div>
-                    <h2 style="font-size: 1.15rem; margin-bottom: 12px; color: #fff;">Conception Électrotechnique Complète :</h2>
+                    <div class="badge badge-firmware">Firmware & Contrôle Temps Réel</div>
+                    <h2 style="font-size: 1.15rem; margin-bottom: 12px; color: #fff;">Architecture Embarquée Complète :</h2>
                     <ul class="tech-list">
-                        <li><strong>Étages de Puissance & Moteurs :</strong> Commande de moteurs continus à fort couple et moteurs pas-à-pas. Gestion des courants d'appel et découplage inductif.</li>
-                        <li><strong>Variateurs de Vitesse & H-Bridge :</strong> Intégration de variateurs industriels IBT-2 (43A, isolation optocouplée) et drivers pas-à-pas TB6600 avec régulation Buck LM2596 (24V→5V).</li>
-                        <li><strong>Architecture Électrique Sécurisée :</strong> Séparation nette entre circuit de commande (5V/3.3V) et circuit de puissance (24V), protection thermique et fusibles calibrés.</li>
-                        <li><strong>Pilotage & Télémétrie :</strong> Contrôle microcontrôleur temps réel, liaison série UART et Dashboard de supervision à distance.</li>
+                        <li><strong>Calculateur & Firmware C/C++ :</strong> Cœur de contrôle temps réel (Arduino Mega / ATmega2560) cadencé avec gestion précise des interruptions de timers pour la génération de PWM haute fréquence.</li>
+                        <li><strong>Interface avec l'Étage de Puissance :</strong> Commande isolée de ponts en H (IBT-2) pour moteurs continus fort courant et génération d'impulsions de pas (Step/Dir) pour variateur TB6600.</li>
+                        <li><strong>Protocole de Communication Série :</strong> Trame UART structurée bidirectionnelle entre le contrôleur temps réel et un module réseau ESP32 (Wi-Fi / WebSockets).</li>
+                        <li><strong>Serveur Web Embarqué & Télémétrie :</strong> Interface de commande responsive hébergée directement sur le microcontrôleur pour contrôle à distance sans latence.</li>
                     </ul>
                     <div class="highlight-box">
-                        <strong>Lien direct MENG :</strong> Maîtrise des problématiques réelles de variateurs de fréquence, de pilotage de moteurs électriques et d'échauffement thermique.
+                        <strong>Démonstration :</strong> Intégration hardware complète, pilotage multi-moteurs et communication sans fil fiable.
                     </div>
                 </div>
                 <div class="gallery-grid">
                     <div class="img-card" onclick="openModal(this)">
-                        <img src="img_meng/media_1788483466689.png" alt="Modèle 3D CAO 3 Blocs">
+                        <img src="img_meng/media_1788483466689.png" alt="Modélisation 3D CAO du Système">
                         <div class="img-caption">
                             <span>Modélisation 3D CAO</span>
                             <span class="zoom-hint">Zoom</span>
                         </div>
                     </div>
                     <div class="img-card" onclick="openModal(this)">
-                        <img src="img_meng/architecture_electronique_complete.png" alt="Schéma d'Architecture Puissance & Commande">
+                        <img src="img_meng/architecture_electronique_complete.png" alt="Schéma d'Architecture Embarquée Puissance & Commande">
                         <div class="img-caption">
-                            <span>Schéma Puissance & Commande</span>
+                            <span>Architecture Matérielle & Bus</span>
                             <span class="zoom-hint">Zoom</span>
                         </div>
                     </div>
                     <div class="img-card" onclick="openModal(this)">
-                        <img src="img_meng/interface_web.png" alt="Dashboard de Pilotage et Télémétrie">
+                        <img src="img_meng/interface_web.png" alt="Dashboard Web Embarqué">
                         <div class="img-caption">
-                            <span>Supervision / IHM de Pilotage</span>
+                            <span>Supervision Web Embarquée</span>
                             <span class="zoom-hint">Zoom</span>
                         </div>
                     </div>
@@ -525,38 +534,38 @@
             </div>
         </div>
 
-        <!-- SLIDE 4: RÉGULATION PID TEMPS RÉEL & BANCS D'ESSAI -->
+        <!-- SLIDE 4: ROVER AUTONOME, TRAITEMENT D'IMAGE EMBARQUÉ & PID -->
         <div class="slide" id="slide-4">
             <div class="slide-title-wrap">
-                <div class="slide-title">03. Régulation PID Temps Réel & Bancs d'Essai</div>
-                <div class="slide-subtitle">Instrumentation, acquisition capteurs et automatisation de mesures</div>
+                <div class="slide-title">03. Traitement de Données Embarqué & Asservissement PID</div>
+                <div class="slide-subtitle">Vision temps réel sur ESP32-CAM (ROI), boucle fermée et banc de télémétrie</div>
             </div>
             <div class="content-layout">
                 <div class="card">
-                    <div class="badge">Instrumentation & Contrôle Avancé</div>
-                    <h2 style="font-size: 1.2rem; margin-bottom: 14px; color: #fff;">Asservissement & Traitement de Données</h2>
+                    <div class="badge badge-firmware">Edge Computing & Asservissement</div>
+                    <h2 style="font-size: 1.2rem; margin-bottom: 14px; color: #fff;">Traitement d'Image & Régulation sur Cible</h2>
                     <ul class="tech-list">
-                        <li><strong>Asservissement PID en Boucle Fermée :</strong> Implémentation logicielle d'un correcteur PID complet (Kp, Ki, Kd) pour correction dynamique instantanée de consigne.</li>
-                        <li><strong>Acquisition Capteurs en Temps Réel :</strong> Mesure de grandeurs physiques (vitesse, position, seuils optiques ROI, ultrasons), filtrage de bruit et conversion analogique/numérique.</li>
-                        <li><strong>Plateforme Mobile Autonome (3ème Année B.U.T.) :</strong> Intégration mécatronique globale : gestion d'accumulateurs Li-ion, ponts de puissance, sécurité machine et coupure d'urgence.</li>
-                        <li><strong>Dashboard de Monitoring :</strong> Visualisation graphique des écarts de consigne, réglage des gains en temps réel et historisation des mesures.</li>
+                        <li><strong>Edge Vision & ROI (Region of Interest) :</strong> Acquisition d'un flux caméra sur ESP32-CAM, seuillage binarisé et calcul du barycentre optique en direct avec fenêtrage ROI pour minimiser la consommation CPU et la latence.</li>
+                        <li><strong>Correcteur PID Développé en C++ :</strong> Calcul d'erreur d'asservissement en temps réel, réglage dynamique des coefficients (Kp, Ki, Kd) pour correction instantanée de trajectoire.</li>
+                        <li><strong>Fusion de Capteurs :</strong> Intégration de capteurs de distance ultrasons avec logique d'évitement prioritaire et réalignement visuel autonome.</li>
+                        <li><strong>Banc de Télémétrie & Monitoring :</strong> Remontée graphique des données de vol (écarts de consigne, vitesse, état batterie) sur tableau de bord communicant.</li>
                     </ul>
                     <div class="highlight-box">
-                        <strong>Atout pour MENG SAS :</strong> Capacité à automatiser des bancs d'essai de transformateurs et moteurs (relevé automatique de courbes de saturation, pertes fer/cuivre, tenue diélectrique, rapports de test informatisés).
+                        <strong>Transposition Industrielle :</strong> Instrumentation intelligente, bancs de test automatisés pour mesure de grandeurs physiques (vibrations, température, courant) et maintenance prédictive.
                     </div>
                 </div>
                 <div class="gallery-container">
                     <div class="img-card" onclick="openModal(this)">
-                        <img src="img_meng/97b7dd19-25eb-4fa2-a109-078019bc1228.jfif" alt="Prototype Mobile 3ème Année B.U.T.">
+                        <img src="img_meng/97b7dd19-25eb-4fa2-a109-078019bc1228.jfif" alt="Plateforme Embarquée Autonome 3ème Année B.U.T.">
                         <div class="img-caption">
-                            <span>Prototype Autonome & Carte de Contrôle</span>
+                            <span>Calculateur Embarqué & Châssis Robotique</span>
                             <span class="zoom-hint">Cliquer pour zoomer</span>
                         </div>
                     </div>
                     <div class="img-card" style="flex: 1.2;" onclick="openModal(this)">
-                        <img src="img_meng/media_1788483424173.png" alt="Dashboard Régulation PID & Acquisition Capteurs">
+                        <img src="img_meng/media_1788483424173.png" alt="Dashboard ESP32-CAM Vision ROI & Régulation PID">
                         <div class="img-caption">
-                            <span>Dashboard Acquisition & Régulation PID</span>
+                            <span>Dashboard Vision ROI & Paramétrage PID</span>
                             <span class="zoom-hint">Cliquer pour zoomer</span>
                         </div>
                     </div>
@@ -595,7 +604,6 @@
             });
             document.getElementById('slideNum').innerText = `Slide ${currentSlide} / ${totalSlides}`;
             
-            // Manage inline video playback on slide 3
             const inlineVideo = document.getElementById('inlineVideo');
             if (inlineVideo && currentSlide !== 3) {
                 inlineVideo.pause();
@@ -609,7 +617,6 @@
             updateSlide();
         }
 
-        // Keyboard navigation
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight' || e.key === ' ') {
                 changeSlide(1);
@@ -620,7 +627,6 @@
             }
         });
 
-        // Lightbox Modal
         function openModal(card) {
             const modal = document.getElementById('imgModal');
             const modalImg = document.getElementById('modalImg');
