@@ -3,17 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ingénieur Systèmes Embarqués & IoT en Bureau d'Études — Driss KAMMOURI ALAMI</title>
+    <title>Présentation Projets R&D & Réalisations - Driss KAMMOURI ALAMI</title>
     <style>
         :root {
-            --bg-primary: #0a0f1d;
-            --bg-card: #151f32;
-            --bg-card-hover: #1c2b45;
-            --accent-blue: #3b82f6;
-            --accent-cyan: #06b6d4;
-            --accent-purple: #8b5cf6;
-            --accent-green: #10b981;
-            --border-color: #24344d;
+            --bg-primary: #0f172a;
+            --bg-card: #1e293b;
+            --accent-blue: #2563eb;
+            --border-color: #334155;
             --text-primary: #f8fafc;
             --text-secondary: #94a3b8;
         }
@@ -22,7 +18,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
@@ -34,54 +30,33 @@
             flex-direction: column;
         }
 
-        /* Top Header */
         .header-bar {
-            background: rgba(10, 15, 29, 0.95);
-            backdrop-filter: blur(10px);
+            background: #0f172a;
             border-bottom: 1px solid var(--border-color);
-            padding: 12px 35px;
+            padding: 14px 35px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 100;
         }
 
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .target-pill {
-            background: rgba(6, 182, 212, 0.15);
-            color: var(--accent-cyan);
-            border: 1px solid rgba(6, 182, 212, 0.4);
-            padding: 4px 12px;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
         .header-title {
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             font-weight: 700;
             color: #ffffff;
-            letter-spacing: 0.2px;
+            letter-spacing: 0.3px;
         }
 
         .slide-counter {
             font-size: 0.85rem;
             color: var(--text-secondary);
-            background: var(--bg-card);
+            background: #1e293b;
             border: 1px solid var(--border-color);
             padding: 4px 14px;
             border-radius: 6px;
             font-weight: 600;
         }
 
-        /* Slide Container */
         .slide-container {
             flex: 1;
             position: relative;
@@ -96,221 +71,93 @@
             left: 0;
             width: 100%;
             height: 100%;
-            padding: 25px 45px;
+            padding: 30px 50px;
             display: flex;
             flex-direction: column;
             opacity: 0;
-            pointer-events: none;
-            transform: translateX(40px);
-            transition: opacity 0.35s ease, transform 0.35s ease;
-            box-sizing: border-box;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out;
         }
 
         .slide.active {
             opacity: 1;
-            pointer-events: auto;
-            transform: translateX(0);
-        }
-
-        /* Slide Titles */
-        .slide-title-wrap {
-            margin-bottom: 20px;
+            visibility: visible;
         }
 
         .slide-title {
-            font-size: 1.7rem;
-            font-weight: 800;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 22px;
             color: #ffffff;
-            display: flex;
-            align-items: center;
-            gap: 12px;
+            border-bottom: 2px solid var(--accent-blue);
+            padding-bottom: 8px;
+            display: inline-block;
         }
 
-        .slide-subtitle {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            margin-top: 4px;
-        }
-
-        /* Layouts */
-        .content-layout {
+        .content-layout-large-img {
             display: grid;
-            grid-template-columns: 1fr 1.35fr;
+            grid-template-columns: 0.85fr 1.45fr;
             gap: 25px;
-            height: calc(100% - 75px);
+            height: calc(100% - 60px);
+            align-items: center;
         }
 
         .content-layout-hero {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
-            text-align: center;
-            height: 100%;
-            max-width: 980px;
-            margin: 0 auto;
+            height: calc(100% - 60px);
         }
 
-        /* Cards */
         .card {
-            background-color: var(--bg-card);
+            background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 22px;
+            border-radius: 10px;
+            padding: 24px;
+            height: 100%;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            overflow-y: auto;
+            justify-content: center;
         }
 
         .badge {
             display: inline-block;
-            align-self: flex-start;
-            background: rgba(59, 130, 246, 0.2);
+            background: rgba(37, 99, 235, 0.15);
             color: #60a5fa;
-            border: 1px solid rgba(59, 130, 246, 0.4);
+            border: 1px solid rgba(37, 99, 235, 0.4);
             padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-bottom: 12px;
-            letter-spacing: 0.5px;
-        }
-
-        .badge-firmware {
-            background: rgba(16, 185, 129, 0.2);
-            color: #34d399;
-            border-color: rgba(16, 185, 129, 0.4);
-        }
-
-        .badge-iot {
-            background: rgba(139, 92, 246, 0.2);
-            color: #c084fc;
-            border-color: rgba(139, 92, 246, 0.4);
-        }
-
-        .tech-list {
-            list-style: none;
-            margin: 10px 0;
-        }
-
-        .tech-list li {
-            position: relative;
-            padding-left: 20px;
-            margin-bottom: 12px;
-            font-size: 0.95rem;
-            line-height: 1.5;
-            color: #cbd5e1;
-        }
-
-        .tech-list li::before {
-            content: "▹";
-            position: absolute;
-            left: 0;
-            color: var(--accent-cyan);
-            font-weight: bold;
-        }
-
-        .tech-list strong {
-            color: #ffffff;
-        }
-
-        .highlight-box {
-            background: rgba(6, 182, 212, 0.08);
-            border-left: 3px solid var(--accent-cyan);
-            padding: 12px 14px;
-            border-radius: 0 8px 8px 0;
-            font-size: 0.88rem;
-            color: #e2e8f0;
-            margin-top: 10px;
-        }
-
-        /* Hero Elements */
-        .hero-title {
-            font-size: 2.7rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #ffffff 0%, #38bdf8 50%, #818cf8 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 12px;
-            line-height: 1.15;
-        }
-
-        .hero-subtitle {
-            font-size: 1.25rem;
-            color: #94a3b8;
-            margin-bottom: 24px;
-            max-width: 850px;
-        }
-
-        .pill-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            margin-top: 16px;
-        }
-
-        .pill {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-color);
-            padding: 8px 16px;
-            border-radius: 20px;
+            border-radius: 4px;
             font-size: 0.85rem;
-            color: #cbd5e1;
-            font-weight: 600;
+            font-weight: 700;
+            margin-bottom: 14px;
+            text-transform: uppercase;
         }
 
-        .pill-cyan {
-            border-color: rgba(6, 182, 212, 0.5);
-            color: #38bdf8;
-            background: rgba(6, 182, 212, 0.1);
-        }
-
-        .pill-green {
-            border-color: rgba(16, 185, 129, 0.5);
-            color: #34d399;
-            background: rgba(16, 185, 129, 0.1);
-        }
-
-        .pill-purple {
-            border-color: rgba(139, 92, 246, 0.5);
-            color: #c084fc;
-            background: rgba(139, 92, 246, 0.1);
-        }
-
-        /* Gallery Grid */
-        .gallery-container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            grid-template-rows: repeat(2, 1fr);
-            gap: 14px;
+        .large-gallery-container {
+            display: flex;
+            gap: 12px;
             height: 100%;
+            max-height: 550px;
+            width: 100%;
         }
 
         .img-card {
-            background: #0d1527;
-            border: 1px solid var(--border-color);
+            flex: 1;
+            height: 100%;
+            max-height: 550px;
             border-radius: 10px;
             overflow: hidden;
+            border: 1px solid var(--border-color);
+            background: #020617;
             position: relative;
             cursor: pointer;
-            transition: transform 0.2s, border-color 0.2s;
-            display: flex;
-            flex-direction: column;
         }
 
-        .img-card:hover {
-            transform: translateY(-3px);
-            border-color: var(--accent-cyan);
-        }
-
-        .img-card img {
+        .img-card img, .img-card video {
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            display: block;
+            object-fit: contain;
+            background-color: #020617;
         }
 
         .img-caption {
@@ -318,330 +165,257 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(to top, rgba(10, 15, 29, 0.95), transparent);
-            padding: 10px 12px;
-            font-size: 0.78rem;
-            color: #f1f5f9;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .zoom-hint {
-            color: var(--accent-cyan);
-            font-size: 0.75rem;
+            background: rgba(15, 23, 42, 0.95);
+            padding: 8px 14px;
+            font-size: 0.85rem;
             font-weight: 600;
+            color: #e2e8f0;
+            border-top: 1px solid var(--border-color);
         }
 
-        /* Navigation Bar */
-        .nav-bar {
-            height: 60px;
-            background: var(--bg-primary);
-            border-top: 1px solid var(--border-color);
+        ul.tech-list {
+            list-style: none;
+        }
+
+        ul.tech-list li {
+            margin-bottom: 12px;
+            font-size: 1.02rem;
+            color: #cbd5e1;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 45px;
+            align-items: flex-start;
+            gap: 10px;
+            line-height: 1.4;
+        }
+
+        ul.tech-list li strong {
+            color: #ffffff;
+        }
+
+        ul.tech-list li::before {
+            content: "•";
+            color: var(--accent-blue);
+            font-weight: bold;
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+
+        .nav-controls {
+            position: fixed;
+            bottom: 25px;
+            right: 35px;
+            display: flex;
+            gap: 12px;
             z-index: 100;
         }
 
-        .btn {
-            background: var(--bg-card);
-            color: #fff;
+        .nav-btn {
+            background: #1e293b;
+            color: #ffffff;
             border: 1px solid var(--border-color);
-            padding: 8px 20px;
-            border-radius: 8px;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
             font-size: 0.9rem;
             font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s;
+            transition: all 0.2s ease;
         }
 
-        .btn:hover {
-            background: var(--bg-card-hover);
+        .nav-btn:hover {
+            background: var(--accent-blue);
             border-color: var(--accent-blue);
         }
 
-        .btn-primary {
-            background: #2563eb;
-            border-color: #3b82f6;
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 8px;
         }
 
-        .btn-primary:hover {
-            background: #1d4ed8;
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
         }
 
-        .dots-container {
+        .pill-group {
             display: flex;
-            gap: 8px;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
         }
 
-        .dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--border-color);
-            cursor: pointer;
-            transition: all 0.3s;
+        .pill {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            font-weight: 600;
         }
 
-        .dot.active {
-            width: 28px;
-            border-radius: 5px;
-            background: var(--accent-cyan);
-        }
-
-        /* Modal Preview */
+        /* Modal Lightbox */
         .modal {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.88);
-            backdrop-filter: blur(8px);
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
             z-index: 1000;
-            justify-content: center;
             align-items: center;
-            padding: 30px;
+            justify-content: center;
         }
 
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            max-width: 90vw;
-            max-height: 88vh;
-            border-radius: 12px;
+        .modal img, .modal video {
+            max-width: 94vw;
+            max-height: 94vh;
+            border-radius: 8px;
             border: 1px solid var(--border-color);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-            object-fit: contain;
+            background: #000;
         }
 
-        .modal-close {
+        .close-modal-btn {
             position: absolute;
-            top: 25px;
-            right: 35px;
+            top: 20px;
+            right: 30px;
+            background: #1e293b;
             color: #fff;
-            font-size: 2rem;
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 6px;
             cursor: pointer;
-            width: 44px;
-            height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            transition: 0.2s;
+            font-size: 0.9rem;
+            font-weight: 600;
+            z-index: 1001;
         }
 
-        .modal-close:hover {
-            background: rgba(239, 68, 68, 0.6);
+        .close-modal-btn:hover {
+            background: var(--accent-blue);
         }
     </style>
 </head>
 <body>
 
     <div class="header-bar">
-        <div class="header-left">
-            <div class="target-pill">Cible : Bureau d'Études Systèmes Embarqués & IoT</div>
-            <div class="header-title">Driss KAMMOURI ALAMI — Portfolio Conception Électronique, Capteurs & Firmware C/C++</div>
-        </div>
+        <div class="header-title">Driss KAMMOURI ALAMI — Portfolio Projets R&D & Réalisations (Bureau d'Études / IoT)</div>
         <div class="slide-counter" id="slideNum">Slide 1 / 4</div>
     </div>
 
     <div class="slide-container">
 
-        <!-- SLIDE 1: HERO TITLE / PROFIL BUREAU D'ÉTUDES SYSTÈMES EMBARQUÉS & IOT -->
+        <!-- SLIDE 1: HERO TITLE -->
         <div class="slide active" id="slide-1">
             <div class="content-layout-hero">
-                <div class="badge badge-iot">Spécialisation Bureau d'Études & R&D</div>
-                <h1 class="hero-title">Ingénieur Systèmes Embarqués & Objets Connectés (IoT)</h1>
-                <p class="hero-subtitle">Conception Hardware, Intégration de Capteurs, Firmware C/C++ & Protocoles de Communication sans fil</p>
+                <div class="badge">Master 1 SETIA & B.U.T. GEII</div>
+                <h1 class="hero-title">Présentation Projets R&D & Environnement de Travail</h1>
+                <p class="hero-subtitle">Machine Lance-Balles AceLaunch, Rover Autonome (3ème Année B.U.T.) & Traitement d'Image ROI</p>
                 
-                <div class="card" style="height: auto;">
+                <div class="card" style="max-width: 850px; margin-top: 15px; height: auto;">
                     <ul class="tech-list">
-                        <li><strong>Profil & Cursus :</strong> Titulaire du B.U.T. GEII (IUT de Mulhouse) et admis en <strong>Master 1 SETIA (Systèmes Embarqués & Technologies d'IA)</strong> à l'UHA. 21 ans, permis B + véhicule personnel, basé à Bollwiller (~20 min).</li>
-                        <li><strong>Cœur de Métier Bureau d'Études :</strong> Conception de solutions embarquées complètes : du schéma électronique et choix des composants jusqu'au développement du firmware bas-niveau et à la connectivité IoT.</li>
-                        <li><strong>Capteurs & Acquisition :</strong> Interfaçage de capteurs de grandeurs physiques (température, humidité, pression, IMU/accéléromètre, optique, ultrasons) via bus séries <strong>I2C, SPI, UART, ADC</strong>.</li>
-                        <li><strong>Architectures Maîtrisées :</strong> Microcontrôleurs 32 bits (<strong>ESP32, STM32 ARM Cortex, nRF</strong>), systèmes communicants sans fil (<strong>Wi-Fi, Bluetooth LE, LoRaWAN, MQTT</strong>) et programmation <strong>C / C++</strong> optimisée.</li>
+                        <li><strong>Profil Académique :</strong> Diplômé B.U.T. GEII & Admis M1 SETIA (Systèmes Embarqués & Technologies d'IA) à l'UHA</li>
+                        <li><strong>Compétences Clés :</strong> Électronique de puissance, Modélisation CAO 3D, C/C++, Bus de communication, Vision ROI & IHM Web</li>
+                        <li><strong>Objectif de la Présentation :</strong> Démonstration visuelle des prototypes physiques et compétences en Bureau d'Études Électronique & Systèmes Embarqués</li>
                     </ul>
                     <div class="pill-group">
-                        <div class="pill pill-cyan">Développement Firmware C / C++</div>
-                        <div class="pill pill-purple">Architecture IoT & Capteurs Connectés</div>
-                        <div class="pill pill-green">Microcontrôleurs STM32 & ESP32</div>
-                        <div class="pill pill-cyan">Bus Capteurs : I2C / SPI / UART / ADC</div>
-                        <div class="pill pill-purple">Connectivité : Wi-Fi / BLE / LoRa / MQTT</div>
-                        <div class="pill">Conception Cartes Électroniques & CAO 3D</div>
+                        <div class="pill">Machine Lance-Balles AceLaunch (3 Blocs CAO)</div>
+                        <div class="pill">Rover Autonome (3ème Année B.U.T.)</div>
+                        <div class="pill">Dashboard ESP32-CAM — Suivi de Ligne ROI</div>
+                        <div class="pill">Démonstration Vidéo en Direct</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 2: LABORATOIRE DE CONCEPTION ÉLECTRONIQUE & PROTOTYPAGE IOT -->
+        <!-- SLIDE 2: HOME LAB / BUREAU PHOTOS -->
         <div class="slide" id="slide-2">
-            <div class="slide-title-wrap">
-                <div class="slide-title">01. Laboratoire de Conception Électronique & Prototypage IoT</div>
-                <div class="slide-subtitle">Poste de conception Bureau d'Études : intégration de capteurs, routage, instrumentation et flashage microcontrôleurs</div>
-            </div>
-            <div class="content-layout">
+            <div class="slide-title">01. Environnement de Travail & Prototypage R&D</div>
+            <div class="content-layout-large-img">
                 <div class="card">
-                    <div class="badge badge-firmware">Poste de Conception Hardware & Firmware</div>
-                    <h2 style="font-size: 1.2rem; margin-bottom: 14px; color: #fff;">Environnement de Développement BE</h2>
+                    <div class="badge">Espace de Conception</div>
+                    <h2 style="font-size: 1.3rem; margin-bottom: 16px;">Poste de Prototypage & Développement</h2>
                     <ul class="tech-list">
-                        <li><strong>Intégration Hardware & Cartes de Commande :</strong> Câblage de circuits imprimés, adaptation des niveaux logiques (3.3V ↔ 5V), régulation de tension et filtrage d'alimentation.</li>
-                        <li><strong>Interfaçage Multi-Capteurs :</strong> Raccordement et calibration de capteurs de grandeurs physiques (environnementales, inertielles, optiques) sur microcontrôleurs cibles.</li>
-                        <li><strong>Développement Firmware Bas-Niveau en C/C++ :</strong> Programmation sous VS Code / PlatformIO / STM32CubeIDE, gestion des registres, interruptions et timers matériels.</li>
-                        <li><strong>Instrumentation & Validation des Signaux :</strong> Contrôle des signaux d'horloge et décodage de trames de données à l'oscilloscope numérique (bus I2C, SPI, UART).</li>
-                        <li><strong>Modélisation 3D pour Boîtiers & Intégration :</strong> Conception SolidWorks et impression 3D de supports et boîtiers protecteurs pour cartes électroniques et capteurs.</li>
+                        <li><strong>Poste Électronique :</strong> Station de soudure régulée, cablage et montage d'essais sur cartes microcontrôleurs.</li>
+                        <li><strong>Modélisation CAO & Impression 3D :</strong> Conception 3D pour la réalisation de pièces sur mesure et le prototypage rapide.</li>
+                        <li><strong>Alimentation & Alimentations Stabilisées :</strong> Tests et alimentation d'ensembles électroniques et moteurs.</li>
+                        <li><strong>Développement Logiciel Embarqué :</strong> Environnement C/C++ dédié à la programmation microcontrôleurs (STM32, ESP32, Arduino).</li>
                     </ul>
-                    <div class="highlight-box">
-                        <strong>Compétence BE Clé :</strong> Capacité à partir d'un besoin capteur, concevoir la carte électronique d'interface, programmer le microcontrôleur en C/C++ et valider les signaux.
-                    </div>
                 </div>
-                <div class="gallery-container">
+                <div class="large-gallery-container">
                     <div class="img-card" onclick="openModal(this)">
-                        <img src="img_meng/30839e95-cbe1-4d7f-a7e7-8b0f5287fe83.jfif" alt="Poste de Développement Électronique & Firmware">
-                        <div class="img-caption">
-                            <span>Poste de Conception Électronique & Firmware</span>
-                            <span class="zoom-hint">Zoom</span>
-                        </div>
+                        <img src="img_meng/30839e95-cbe1-4d7f-a7e7-8b0f5287fe83.jfif" alt="Poste Électronique">
+                        <div class="img-caption">Poste Électronique de Prototypage</div>
                     </div>
                     <div class="img-card" onclick="openModal(this)">
-                        <img src="img_meng/3513afae-4af7-4faf-9273-4e5af62689bf.jfif" alt="Instrumentation & Mesure de Signaux">
-                        <div class="img-caption">
-                            <span>Instrumentation & Analyse de Signaux</span>
-                            <span class="zoom-hint">Zoom</span>
-                        </div>
-                    </div>
-                    <div class="img-card" onclick="openModal(this)">
-                        <img src="img_meng/media_1788483478117.jpg" alt="Cartes Électroniques & Câblage">
-                        <div class="img-caption">
-                            <span>Cartes Électroniques & Interfaçage</span>
-                            <span class="zoom-hint">Zoom</span>
-                        </div>
-                    </div>
-                    <div class="img-card" onclick="openModal(this)">
-                        <img src="img_meng/media_1788483466689.png" alt="Conception CAO 3D Boîtiers & Châssis">
-                        <div class="img-caption">
-                            <span>Modélisation CAO 3D de Boîtiers (SolidWorks)</span>
-                            <span class="zoom-hint">Zoom</span>
-                        </div>
+                        <img src="img_meng/3513afae-4af7-4faf-9273-4e5af62689bf.jfif" alt="Banc d'Essai">
+                        <div class="img-caption">Espace de Test & Assemblage</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 3: SYSTÈME EMBARQUÉ CONNECTÉ & ACQUISITION MULTI-CAPTEURS -->
+        <!-- SLIDE 3: TENNIS BALL LAUNCHER (3D MODEL + ARCHITECTURE DIAGRAM + DASHBOARD + EMBEDDED VIDEO) -->
         <div class="slide" id="slide-3">
-            <div class="slide-title-wrap">
-                <div class="slide-title">02. Système Électronique Connecté & Acquisition Multi-Capteurs</div>
-                <div class="slide-subtitle">Architecture matérielle autonome, fusion de données capteurs et transmission télémétrique sans fil (IoT)</div>
-            </div>
-            <div class="content-layout">
+            <div class="slide-title">02. Machine Lance-Balles de Tennis « AceLaunch »</div>
+            <div class="content-layout-large-img">
                 <div class="card">
-                    <div class="badge badge-iot">Projet Système Connecté (IoT)</div>
-                    <h2 style="font-size: 1.2rem; margin-bottom: 14px; color: #fff;">Acquisition & Télémétrie sans fil</h2>
+                    <div class="badge">Phase Finale du Prototype & Architecture Électronique/Réseau</div>
+                    <h2 style="font-size: 1.2rem; margin-bottom: 12px;">Conception Modulaire en 3 Blocs :</h2>
                     <ul class="tech-list">
-                        <li><strong>Architecture Électronique Complète :</strong> Conception modulaire articulée autour d'un microcontrôleur principal 32 bits assurant l'orchestration matérielle.</li>
-                        <li><strong>Acquisition Temps Réel & Capteurs :</strong> Lecture continue des flux de capteurs, échantillonnage rapide via convertisseurs ADC et bus numériques (I2C/SPI).</li>
-                        <li><strong>Filtrage & Algorithmes Embarqués :</strong> Traitement numérique bas-niveau des grandeurs physiques mesurées pour éliminer le bruit et fiabiliser la détection d'états.</li>
-                        <li><strong>Transmission Sans Fil & Télémétrie :</strong> Émission des mesures capteurs vers un serveur distant via liaisons Wi-Fi / WebSockets / requêtes réseau optimisées.</li>
-                        <li><strong>Interface Web & Supervision Embarquée :</strong> Développement d'un tableau de bord responsive pour visualiser en direct l'état des capteurs et paramétrer les seuils.</li>
+                        <li><strong>Phase Finale du Prototype :</strong> Présentation du prototype fonctionnel abouti avec choix individuel des composants, quincaillerie, structure bois & pièces 3D.</li>
+                        <li><strong>Architecture en 3 Blocs :</strong> Bloc Base (stabilité), Bloc Rotation (orientation pas à pas) et Bloc Propulsion (moteurs CC & variateurs PWM).</li>
+                        <li><strong>Architecture Électronique & Puissance :</strong> Contrôle microcontrôleur temps réel (Arduino Mega), drivers IBT-2 & TB6600, régulation Buck LM2596 (24V→5V).</li>
+                        <li><strong>Architecture Réseau & Communication :</strong> Liaison UART 9600 bps, serveur Web Wi-Fi AP 2.4GHz sur ESP32 pour télécommande Smartphone/PC.</li>
                     </ul>
-                    <div class="highlight-box">
-                        <strong>Démonstration :</strong> Intégration hardware complète, pilotage d'actionneurs, acquisition multi-capteurs et communication sans fil opérationnelle.
-                    </div>
                 </div>
-                <div class="gallery-container">
+                <div class="large-gallery-container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; height: 100%; max-height: 550px;">
                     <div class="img-card" onclick="openModal(this)">
-                        <img src="img_meng/media_1788483451490.jpg" alt="Carte Électronique et Microcontrôleur">
-                        <div class="img-caption">
-                            <span>Carte Électronique & Microcontrôleur</span>
-                            <span class="zoom-hint">Zoom</span>
-                        </div>
+                        <img src="img_meng/media_1788483466689.png" alt="Modèle 3D CAO 3 Blocs AceLaunch">
+                        <div class="img-caption">Modèle 3D CAO (3 Blocs)</div>
                     </div>
                     <div class="img-card" onclick="openModal(this)">
-                        <img src="img_meng/architecture_electronique_complete.png" alt="Schéma d'Architecture Embarquée et Bus">
-                        <div class="img-caption">
-                            <span>Architecture Matérielle & Bus Capteurs</span>
-                            <span class="zoom-hint">Zoom</span>
-                        </div>
+                        <img src="img_meng/architecture_electronique_complete.png" alt="Architecture Générale du Système Électronique">
+                        <div class="img-caption">Architecture Électronique & Réseau</div>
                     </div>
                     <div class="img-card" onclick="openModal(this)">
-                        <img src="img_meng/interface_web.png" alt="Dashboard Web Embarqué">
-                        <div class="img-caption">
-                            <span>Dashboard Web de Télémétrie IoT</span>
-                            <span class="zoom-hint">Zoom</span>
-                        </div>
+                        <img src="img_meng/interface_web.png" alt="Dashboard Web de Pilotage Distant">
+                        <div class="img-caption">Dashboard Web de Pilotage</div>
                     </div>
                     <div class="img-card" onclick="openModal(this)">
                         <video controls id="inlineVideo" style="width: 100%; height: 100%; object-fit: cover;">
                             <source src="img_meng/Démonstration_Prototype2_Final.mov" type="video/mp4">
                             Votre navigateur ne supporte pas la vidéo.
                         </video>
-                        <div class="img-caption">
-                            <span>Vidéo Démo Prototype en Action</span>
-                            <span class="zoom-hint">Lire</span>
-                        </div>
+                        <div class="img-caption">Vidéo Démo : Lancement Prototype</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 4: ROVER AUTONOME, TRAITEMENT D'IMAGE EMBARQUÉ & FUSION DE CAPTEURS -->
+        <!-- SLIDE 4: ROVER AUTONOME (3EME ANNEE B.U.T.) & ESP32-CAM ROI DASHBOARD -->
         <div class="slide" id="slide-4">
-            <div class="slide-title-wrap">
-                <div class="slide-title">03. Système Intelligent Embarqué & Fusion de Capteurs</div>
-                <div class="slide-subtitle">Vision temps réel sur ESP32-CAM (ROI), fusion capteurs ultrasons et asservissement PID en C++</div>
-            </div>
-            <div class="content-layout">
+            <div class="slide-title">03. Rover Autonome (3ème Année B.U.T.)</div>
+            <div class="content-layout-large-img">
                 <div class="card">
-                    <div class="badge badge-firmware">Edge Computing & Intelligence Embarquée</div>
-                    <h2 style="font-size: 1.2rem; margin-bottom: 14px; color: #fff;">Vision & Traitement Capteurs en Temps Réel</h2>
+                    <div class="badge">Robotique Mobilité & Traitement d'Image ROI</div>
+                    <h2 style="font-size: 1.3rem; margin-bottom: 16px;">Asservissement PID & Dashboard Vision</h2>
                     <ul class="tech-list">
-                        <li><strong>Edge Vision & ROI (Region of Interest) :</strong> Acquisition d'un flux caméra directement sur ESP32-CAM, seuillage binarisé et calcul du barycentre optique en direct avec fenêtrage ROI pour minimiser la consommation CPU et la latence.</li>
-                        <li><strong>Fusion de Capteurs Hétérogènes :</strong> Combinaison des données de détection optique avec des capteurs de distance ultrasons pour une perception fiable de l'environnement.</li>
-                        <li><strong>Régulation & Asservissement en C++ :</strong> Algorithme en boucle fermée développé en C++ pour une correction instantanée et proportionnelle de trajectoire.</li>
-                        <li><strong>Remontée de Métriques & Télémétrie :</strong> Transmission en temps réel des indicateurs capteurs (temps de cycle, seuils de détection, niveaux de batterie).</li>
+                        <li><strong>Rover Autonome 4x4 :</strong> Robotique d'exploration mobile tout-terrain avec gestion d'énergie Li-ion.</li>
+                        <li><strong>Traitement d'Image ROI (Region of Interest) :</strong> Fenêtre de traitement visuel sur le Dashboard ESP32-CAM pour calcul de trajectoire temps réel.</li>
+                        <li><strong>Réglages Vision & PID :</strong> Seuillage binarisé, barycentre optique et correcteur PID fait maison réglable dynamiquement (Kp, Ki, Kd).</li>
+                        <li><strong>Fusion de Données :</strong> Évitement d'obstacles ultrasons <20cm et réalignement visuel autonome.</li>
                     </ul>
-                    <div class="highlight-box">
-                        <strong>Valeur Ajoutée BE :</strong> Conception de systèmes électroniques intelligents autonomes : sélection capteurs, traitement du signal embarqué et développement d'algorithmes temps réel.
-                    </div>
                 </div>
-                <div class="gallery-container">
+                <div class="large-gallery-container">
                     <div class="img-card" onclick="openModal(this)">
-                        <img src="img_meng/97b7dd19-25eb-4fa2-a109-078019bc1228.jfif" alt="Plateforme Embarquée Autonome">
-                        <div class="img-caption">
-                            <span>Plateforme Embarquée Autonome</span>
-                            <span class="zoom-hint">Zoom</span>
-                        </div>
+                        <img src="img_meng/97b7dd19-25eb-4fa2-a109-078019bc1228.jfif" alt="Rover Autonome 3ème Année B.U.T.">
+                        <div class="img-caption">Prototype Rover Autonome (3ème Année B.U.T.)</div>
                     </div>
                     <div class="img-card" style="flex: 1.2;" onclick="openModal(this)">
-                        <img src="img_meng/media_1788483424173.png" alt="Dashboard ESP32-CAM Vision ROI & Capteurs">
-                        <div class="img-caption">
-                            <span>Traitement Vision ROI & Métriques Capteurs</span>
-                            <span class="zoom-hint">Zoom</span>
-                        </div>
-                    </div>
-                    <div class="img-card" onclick="openModal(this)">
-                        <img src="img_meng/2ada0f60-7bd7-4013-9966-82c9b062203a.jfif" alt="Châssis et Capteurs Intégrés">
-                        <div class="img-caption">
-                            <span>Intégration Hardware & Capteurs</span>
-                            <span class="zoom-hint">Zoom</span>
-                        </div>
-                    </div>
-                    <div class="img-card" onclick="openModal(this)">
-                        <img src="img_meng/399c966f-ba70-4e1d-bbd4-9ebbffdbbecf.jfif" alt="Tests et Validation Capteurs">
-                        <div class="img-caption">
-                            <span>Validation Fonctionnelle Capteurs</span>
-                            <span class="zoom-hint">Zoom</span>
-                        </div>
+                        <img src="img_meng/media_1788483424173.png" alt="ESP32-CAM Dashboard Suivi de Ligne AUTO">
+                        <div class="img-caption">Dashboard ESP32-CAM ROI & PID (AUTO)</div>
                     </div>
                 </div>
             </div>
@@ -649,61 +423,44 @@
 
     </div>
 
-    <!-- Navigation Footer -->
-    <div class="nav-bar">
-        <button class="btn" id="prevBtn" onclick="changeSlide(-1)">← Précédent</button>
-        <div class="dots-container" id="dotsContainer">
-            <div class="dot active" onclick="goToSlide(0)"></div>
-            <div class="dot" onclick="goToSlide(1)"></div>
-            <div class="dot" onclick="goToSlide(2)"></div>
-            <div class="dot" onclick="goToSlide(3)"></div>
-        </div>
-        <button class="btn btn-primary" id="nextBtn" onclick="changeSlide(1)">Suivant →</button>
+    <div class="nav-controls">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">Précédent</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Suivant</button>
     </div>
 
-    <!-- Lightbox Modal -->
-    <div class="modal" id="modal" onclick="closeModal()">
-        <span class="modal-close" onclick="closeModal()">&times;</span>
-        <img class="modal-content" id="modalImg" src="" alt="Agrandissement">
+    <!-- Fullscreen Image / Video Zoom Modal -->
+    <div class="modal" id="imgModal">
+        <button class="close-modal-btn" onclick="closeModal()">Fermer (Échap)</button>
+        <img id="modalImg" src="" alt="Image Agrandie" style="display: none;">
+        <video id="modalVideo" controls style="display: none; width: 90vw; height: 85vh; object-fit: contain;">
+            <source src="img_meng/Démonstration_Prototype2_Final.mov" type="video/mp4">
+        </video>
     </div>
 
     <script>
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const dots = document.querySelectorAll('.dot');
-        const slideNum = document.getElementById('slideNum');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
+        let currentSlide = 1;
+        const totalSlides = 4;
 
-        function updateSlideUI() {
-            slides.forEach((slide, idx) => {
-                slide.classList.toggle('active', idx === currentSlide);
+        function updateSlide() {
+            document.querySelectorAll('.slide').forEach((slide, idx) => {
+                if (idx + 1 === currentSlide) {
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.remove('active');
+                }
             });
-            dots.forEach((dot, idx) => {
-                dot.classList.toggle('active', idx === currentSlide);
-            });
-            slideNum.textContent = `Slide ${currentSlide + 1} / ${slides.length}`;
-            prevBtn.disabled = (currentSlide === 0);
-            prevBtn.style.opacity = currentSlide === 0 ? "0.4" : "1";
-            prevBtn.style.cursor = currentSlide === 0 ? "not-allowed" : "pointer";
-            
-            nextBtn.textContent = (currentSlide === slides.length - 1) ? "Recommencer ↺" : "Suivant →";
+            document.getElementById('slideNum').innerText = `Slide ${currentSlide} / ${totalSlides}`;
         }
 
         function changeSlide(direction) {
             currentSlide += direction;
-            if (currentSlide < 0) currentSlide = 0;
-            if (currentSlide >= slides.length) currentSlide = 0;
-            updateSlideUI();
-        }
-
-        function goToSlide(index) {
-            currentSlide = index;
-            updateSlideUI();
+            if (currentSlide < 1) currentSlide = 1;
+            if (currentSlide > totalSlides) currentSlide = totalSlides;
+            updateSlide();
         }
 
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === ' ') {
+            if (e.key === 'ArrowRight' || e.key === 'Space') {
                 changeSlide(1);
             } else if (e.key === 'ArrowLeft') {
                 changeSlide(-1);
@@ -712,20 +469,33 @@
             }
         });
 
-        function openModal(el) {
-            const img = el.querySelector('img');
-            if (!img) return;
-            const modal = document.getElementById('modal');
+        function openModal(cardElem) {
+            const img = cardElem.querySelector('img');
+            const video = cardElem.querySelector('video');
             const modalImg = document.getElementById('modalImg');
-            modalImg.src = img.src;
-            modal.classList.add('active');
+            const modalVideo = document.getElementById('modalVideo');
+            const modal = document.getElementById('imgModal');
+            
+            if (img) {
+                modalVideo.pause();
+                modalVideo.style.display = 'none';
+                modalImg.style.display = 'block';
+                modalImg.src = img.src;
+                modal.style.display = 'flex';
+            } else if (video) {
+                modalImg.style.display = 'none';
+                modalVideo.style.display = 'block';
+                modalVideo.currentTime = 0;
+                modalVideo.play();
+                modal.style.display = 'flex';
+            }
         }
 
         function closeModal() {
-            document.getElementById('modal').classList.remove('active');
+            const modalVideo = document.getElementById('modalVideo');
+            modalVideo.pause();
+            document.getElementById('imgModal').style.display = 'none';
         }
-
-        updateSlideUI();
     </script>
 </body>
 </html>
