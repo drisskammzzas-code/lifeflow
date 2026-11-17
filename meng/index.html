@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Présentation Projets R&D & Réalisations - Driss KAMMOURI ALAMI</title>
     <style>
         :root {
             --bg-primary: #0f172a;
             --bg-card: #1e293b;
             --accent-blue: #2563eb;
+            --accent-cyan: #06b6d4;
             --border-color: #334155;
             --text-primary: #f8fafc;
             --text-secondary: #94a3b8;
@@ -22,50 +23,59 @@
             margin: 0;
             padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
             background-color: var(--bg-primary);
             color: var(--text-primary);
-            overflow: hidden;
             height: 100vh;
+            height: 100dvh;
             display: flex;
             flex-direction: column;
+            overflow: hidden;
         }
 
+        /* Header Bar */
         .header-bar {
             background: #0f172a;
             border-bottom: 1px solid var(--border-color);
-            padding: 14px 35px;
+            padding: 12px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 100;
+            flex-shrink: 0;
         }
 
         .header-title {
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             font-weight: 700;
             color: #ffffff;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding-right: 10px;
         }
 
         .slide-counter {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
+            font-size: 0.8rem;
+            color: var(--accent-cyan);
             background: #1e293b;
             border: 1px solid var(--border-color);
-            padding: 4px 14px;
+            padding: 4px 12px;
             border-radius: 6px;
-            font-weight: 600;
+            font-weight: 700;
+            flex-shrink: 0;
         }
 
+        /* Slide Container */
         .slide-container {
             flex: 1;
             position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            overflow: hidden;
+            width: 100%;
         }
 
         .slide {
@@ -74,12 +84,15 @@
             left: 0;
             width: 100%;
             height: 100%;
-            padding: 30px 50px;
+            padding: 24px 35px 80px 35px;
             display: flex;
             flex-direction: column;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.3s ease-in-out;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+            box-sizing: border-box;
         }
 
         .slide.active {
@@ -88,36 +101,36 @@
         }
 
         .slide-title {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 700;
-            margin-bottom: 22px;
+            margin-bottom: 16px;
             color: #ffffff;
             border-bottom: 2px solid var(--accent-blue);
-            padding-bottom: 8px;
+            padding-bottom: 6px;
             display: inline-block;
         }
 
+        /* Desktop Grid */
         .content-layout-large-img {
             display: grid;
-            grid-template-columns: 0.85fr 1.45fr;
-            gap: 25px;
-            height: calc(100% - 60px);
-            align-items: center;
+            grid-template-columns: 0.9fr 1.35fr;
+            gap: 20px;
+            min-height: calc(100% - 60px);
+            align-items: stretch;
         }
 
         .content-layout-hero {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            height: calc(100% - 60px);
+            min-height: calc(100% - 60px);
         }
 
         .card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 10px;
-            padding: 24px;
-            height: 100%;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -125,35 +138,44 @@
 
         .badge {
             display: inline-block;
+            align-self: flex-start;
             background: rgba(37, 99, 235, 0.15);
             color: #60a5fa;
             border: 1px solid rgba(37, 99, 235, 0.4);
             padding: 4px 10px;
             border-radius: 4px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 700;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             text-transform: uppercase;
         }
 
         .large-gallery-container {
             display: flex;
             gap: 12px;
-            height: 100%;
-            max-height: 550px;
             width: 100%;
+            min-height: 380px;
+        }
+
+        .gallery-grid-2x2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            width: 100%;
+            min-height: 380px;
         }
 
         .img-card {
             flex: 1;
-            height: 100%;
-            max-height: 550px;
             border-radius: 10px;
             overflow: hidden;
             border: 1px solid var(--border-color);
             background: #020617;
             position: relative;
             cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            min-height: 180px;
         }
 
         .img-card img, .img-card video {
@@ -161,6 +183,7 @@
             height: 100%;
             object-fit: contain;
             background-color: #020617;
+            display: block;
         }
 
         .img-caption {
@@ -168,12 +191,13 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(15, 23, 42, 0.95);
-            padding: 8px 14px;
-            font-size: 0.85rem;
+            background: rgba(15, 23, 42, 0.92);
+            padding: 8px 12px;
+            font-size: 0.82rem;
             font-weight: 600;
             color: #e2e8f0;
             border-top: 1px solid var(--border-color);
+            backdrop-filter: blur(4px);
         }
 
         ul.tech-list {
@@ -182,12 +206,12 @@
 
         ul.tech-list li {
             margin-bottom: 12px;
-            font-size: 1.02rem;
+            font-size: 0.95rem;
             color: #cbd5e1;
             display: flex;
             align-items: flex-start;
-            gap: 10px;
-            line-height: 1.4;
+            gap: 8px;
+            line-height: 1.45;
         }
 
         ul.tech-list li strong {
@@ -202,63 +226,103 @@
             line-height: 1;
         }
 
-        .nav-controls {
-            position: fixed;
-            bottom: 25px;
-            right: 35px;
-            display: flex;
-            gap: 12px;
-            z-index: 100;
-        }
-
-        .nav-btn {
-            background: #1e293b;
-            color: #ffffff;
-            border: 1px solid var(--border-color);
-            padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: all 0.2s ease;
-        }
-
-        .nav-btn:hover {
-            background: var(--accent-blue);
-            border-color: var(--accent-blue);
-        }
-
         .hero-title {
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
             font-weight: 800;
             color: #ffffff;
             margin-bottom: 8px;
+            line-height: 1.2;
         }
 
         .hero-subtitle {
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
             color: var(--text-secondary);
-            margin-bottom: 20px;
+            margin-bottom: 16px;
+            line-height: 1.35;
         }
 
         .pill-group {
             display: flex;
-            gap: 10px;
-            margin-top: 15px;
+            gap: 8px;
+            margin-top: 14px;
             flex-wrap: wrap;
         }
 
         .pill {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--border-color);
-            padding: 6px 14px;
+            padding: 6px 12px;
             border-radius: 6px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #cbd5e1;
             font-weight: 600;
         }
 
-        /* Modal Lightbox */
+        /* Fixed Mobile Navigation Controls */
+        .nav-controls {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 64px;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(8px);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 200;
+        }
+
+        .nav-btn {
+            background: #1e293b;
+            color: #ffffff;
+            border: 1px solid var(--border-color);
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            touch-action: manipulation;
+        }
+
+        .nav-btn:hover, .nav-btn:active {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .mobile-dots {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .mobile-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border-color);
+            transition: all 0.2s;
+        }
+
+        .mobile-dot.active {
+            width: 20px;
+            border-radius: 4px;
+            background: var(--accent-cyan);
+        }
+
+        /* Fullscreen Image / Video Zoom Modal */
         .modal {
             display: none;
             position: fixed;
@@ -266,48 +330,113 @@
             left: 0;
             width: 100vw;
             height: 100vh;
+            height: 100dvh;
             background: rgba(0, 0, 0, 0.95);
             z-index: 1000;
             align-items: center;
             justify-content: center;
+            padding: 15px;
+            box-sizing: border-box;
         }
 
         .modal img, .modal video {
-            max-width: 94vw;
-            max-height: 94vh;
+            max-width: 96vw;
+            max-height: 88vh;
             border-radius: 8px;
             border: 1px solid var(--border-color);
             background: #000;
+            object-fit: contain;
         }
 
         .close-modal-btn {
             position: absolute;
-            top: 20px;
-            right: 30px;
+            top: 15px;
+            right: 20px;
             background: #1e293b;
             color: #fff;
             border: 1px solid var(--border-color);
             padding: 8px 16px;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 600;
+            font-size: 0.85rem;
+            font-weight: 700;
             z-index: 1001;
         }
 
-        .close-modal-btn:hover {
-            background: var(--accent-blue);
+        /* MOBILE RESPONSIVE TWEAKS */
+        @media (max-width: 768px) {
+            .header-bar {
+                padding: 10px 14px;
+            }
+
+            .header-title {
+                font-size: 0.85rem;
+            }
+
+            .slide {
+                padding: 16px 14px 75px 14px;
+            }
+
+            .slide-title {
+                font-size: 1.3rem;
+                margin-bottom: 12px;
+            }
+
+            .content-layout-large-img {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .card {
+                padding: 16px;
+                height: auto;
+            }
+
+            ul.tech-list li {
+                font-size: 0.88rem;
+                margin-bottom: 10px;
+            }
+
+            .large-gallery-container {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                min-height: auto;
+            }
+
+            .gallery-grid-2x2 {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                min-height: auto;
+            }
+
+            .img-card {
+                min-height: 220px;
+                height: 220px;
+            }
+
+            .img-caption {
+                font-size: 0.78rem;
+                padding: 6px 10px;
+            }
+
+            .pill {
+                font-size: 0.75rem;
+                padding: 4px 10px;
+            }
         }
     </style>
 </head>
 <body>
 
     <div class="header-bar">
-        <div class="header-title">Driss KAMMOURI ALAMI — Portfolio Projets R&D & Réalisations (Bureau d'Études / IoT)</div>
-        <div class="slide-counter" id="slideNum">Slide 1 / 4</div>
+        <div class="header-title">Driss KAMMOURI ALAMI — Portfolio R&D (Bureau d'Études / IoT)</div>
+        <div class="slide-counter" id="slideNum">1 / 4</div>
     </div>
 
-    <div class="slide-container">
+    <div class="slide-container" id="slideContainer">
 
         <!-- SLIDE 1: HERO TITLE -->
         <div class="slide active" id="slide-1">
@@ -316,11 +445,11 @@
                 <h1 class="hero-title">Présentation Projets R&D & Environnement de Travail</h1>
                 <p class="hero-subtitle">Machine Lance-Balles AceLaunch, Rover Autonome (3ème Année B.U.T.) & Traitement d'Image ROI</p>
                 
-                <div class="card" style="max-width: 850px; margin-top: 15px; height: auto;">
+                <div class="card" style="max-width: 850px; margin-top: 10px;">
                     <ul class="tech-list">
-                        <li><strong>Profil Académique :</strong> Diplômé B.U.T. GEII & Admis M1 SETIA (Systèmes Embarqués & Technologies d'IA) à l'UHA</li>
-                        <li><strong>Compétences Clés :</strong> Électronique de puissance, Modélisation CAO 3D, C/C++, Bus de communication, Vision ROI & IHM Web</li>
-                        <li><strong>Objectif de la Présentation :</strong> Démonstration visuelle des prototypes physiques et compétences en Bureau d'Études Électronique & Systèmes Embarqués</li>
+                        <li><strong>Profil Académique :</strong> Diplômé B.U.T. GEII & Admis M1 SETIA (Systèmes Embarqués & Technologies d'IA) à l'UHA. 21 ans, véhiculé.</li>
+                        <li><strong>Compétences Clés :</strong> Électronique de puissance, Modélisation CAO 3D, C/C++, Bus de communication, Vision ROI & IHM Web.</li>
+                        <li><strong>Objectif de la Présentation :</strong> Démonstration visuelle des prototypes physiques et compétences en Bureau d'Études Électronique & Systèmes Embarqués.</li>
                     </ul>
                     <div class="pill-group">
                         <div class="pill">Machine Lance-Balles AceLaunch (3 Blocs CAO)</div>
@@ -338,7 +467,7 @@
             <div class="content-layout-large-img">
                 <div class="card">
                     <div class="badge">Espace de Conception</div>
-                    <h2 style="font-size: 1.3rem; margin-bottom: 16px;">Poste de Prototypage & Développement</h2>
+                    <h2 style="font-size: 1.15rem; margin-bottom: 14px; color: #fff;">Poste de Prototypage & Développement</h2>
                     <ul class="tech-list">
                         <li><strong>Poste Électronique :</strong> Station de soudure régulée, cablage et montage d'essais sur cartes microcontrôleurs.</li>
                         <li><strong>Modélisation CAO & Impression 3D :</strong> Conception 3D pour la réalisation de pièces sur mesure et le prototypage rapide.</li>
@@ -348,11 +477,11 @@
                 </div>
                 <div class="large-gallery-container">
                     <div class="img-card" onclick="openModal(this)">
-                        <img src="img_meng/30839e95-cbe1-4d7f-a7e7-8b0f5287fe83.jfif" alt="Poste Électronique">
+                        <img src="img_meng/30839e95-cbe1-4d7f-a7e7-8b0f5287fe83.jfif" alt="Poste Électronique" loading="lazy">
                         <div class="img-caption">Poste Électronique de Prototypage</div>
                     </div>
                     <div class="img-card" onclick="openModal(this)">
-                        <img src="img_meng/3513afae-4af7-4faf-9273-4e5af62689bf.jfif" alt="Banc d'Essai">
+                        <img src="img_meng/3513afae-4af7-4faf-9273-4e5af62689bf.jfif" alt="Banc d'Essai" loading="lazy">
                         <div class="img-caption">Espace de Test & Assemblage</div>
                     </div>
                 </div>
@@ -365,7 +494,7 @@
             <div class="content-layout-large-img">
                 <div class="card">
                     <div class="badge">Phase Finale du Prototype & Architecture Électronique/Réseau</div>
-                    <h2 style="font-size: 1.2rem; margin-bottom: 12px;">Conception Modulaire en 3 Blocs :</h2>
+                    <h2 style="font-size: 1.15rem; margin-bottom: 12px; color: #fff;">Conception Modulaire en 3 Blocs :</h2>
                     <ul class="tech-list">
                         <li><strong>Phase Finale du Prototype :</strong> Présentation du prototype fonctionnel abouti avec choix individuel des composants, quincaillerie, structure bois & pièces 3D.</li>
                         <li><strong>Architecture en 3 Blocs :</strong> Bloc Base (stabilité), Bloc Rotation (orientation pas à pas) et Bloc Propulsion (moteurs CC & variateurs PWM).</li>
@@ -373,21 +502,21 @@
                         <li><strong>Architecture Réseau & Communication :</strong> Liaison UART 9600 bps, serveur Web Wi-Fi AP 2.4GHz sur ESP32 pour télécommande Smartphone/PC.</li>
                     </ul>
                 </div>
-                <div class="large-gallery-container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; height: 100%; max-height: 550px;">
+                <div class="gallery-grid-2x2">
                     <div class="img-card" onclick="openModal(this)">
-                        <img src="img_meng/media_1788483466689.png" alt="Modèle 3D CAO 3 Blocs AceLaunch">
+                        <img src="img_meng/media_1788483466689.png" alt="Modèle 3D CAO 3 Blocs AceLaunch" loading="lazy">
                         <div class="img-caption">Modèle 3D CAO (3 Blocs)</div>
                     </div>
                     <div class="img-card" onclick="openModal(this)">
-                        <img src="img_meng/architecture_electronique_complete.png" alt="Architecture Générale du Système Électronique">
+                        <img src="img_meng/architecture_electronique_complete.png" alt="Architecture Générale du Système Électronique" loading="lazy">
                         <div class="img-caption">Architecture Électronique & Réseau</div>
                     </div>
                     <div class="img-card" onclick="openModal(this)">
-                        <img src="img_meng/interface_web.png" alt="Dashboard Web de Pilotage Distant">
+                        <img src="img_meng/interface_web.png" alt="Dashboard Web de Pilotage Distant" loading="lazy">
                         <div class="img-caption">Dashboard Web de Pilotage</div>
                     </div>
                     <div class="img-card" onclick="openModal(this)">
-                        <video controls id="inlineVideo" style="width: 100%; height: 100%; object-fit: cover;">
+                        <video controls id="inlineVideo" playsinline preload="metadata" style="width: 100%; height: 100%; object-fit: contain;">
                             <source src="img_meng/Démonstration_Prototype2_Final.mov" type="video/mp4">
                             Votre navigateur ne supporte pas la vidéo.
                         </video>
@@ -403,21 +532,21 @@
             <div class="content-layout-large-img">
                 <div class="card">
                     <div class="badge">Robotique Mobilité & Traitement d'Image ROI</div>
-                    <h2 style="font-size: 1.3rem; margin-bottom: 16px;">Asservissement PID & Dashboard Vision</h2>
+                    <h2 style="font-size: 1.15rem; margin-bottom: 14px; color: #fff;">Asservissement PID & Dashboard Vision</h2>
                     <ul class="tech-list">
                         <li><strong>Rover Autonome 4x4 :</strong> Robotique d'exploration mobile tout-terrain avec gestion d'énergie Li-ion.</li>
                         <li><strong>Traitement d'Image ROI (Region of Interest) :</strong> Fenêtre de traitement visuel sur le Dashboard ESP32-CAM pour calcul de trajectoire temps réel.</li>
                         <li><strong>Réglages Vision & PID :</strong> Seuillage binarisé, barycentre optique et correcteur PID fait maison réglable dynamiquement (Kp, Ki, Kd).</li>
-                        <li><strong>Fusion de Données :</strong> Évitement d'obstacles ultrasons <20cm et réalignement visuel autonome.</li>
+                        <li><strong>Fusion de Données :</strong> Évitement d'obstacles ultrasons &lt;20cm et réalignement visuel autonome.</li>
                     </ul>
                 </div>
                 <div class="large-gallery-container">
                     <div class="img-card" onclick="openModal(this)">
-                        <img src="img_meng/97b7dd19-25eb-4fa2-a109-078019bc1228.jfif" alt="Rover Autonome 3ème Année B.U.T.">
+                        <img src="img_meng/97b7dd19-25eb-4fa2-a109-078019bc1228.jfif" alt="Rover Autonome 3ème Année B.U.T." loading="lazy">
                         <div class="img-caption">Prototype Rover Autonome (3ème Année B.U.T.)</div>
                     </div>
-                    <div class="img-card" style="flex: 1.2;" onclick="openModal(this)">
-                        <img src="img_meng/media_1788483424173.png" alt="ESP32-CAM Dashboard Suivi de Ligne AUTO">
+                    <div class="img-card" onclick="openModal(this)">
+                        <img src="img_meng/media_1788483424173.png" alt="ESP32-CAM Dashboard Suivi de Ligne AUTO" loading="lazy">
                         <div class="img-caption">Dashboard ESP32-CAM ROI & PID (AUTO)</div>
                     </div>
                 </div>
@@ -426,16 +555,23 @@
 
     </div>
 
+    <!-- Bottom Mobile & Desktop Navigation Bar -->
     <div class="nav-controls">
-        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">Précédent</button>
-        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Suivant</button>
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">← Précédent</button>
+        <div class="mobile-dots" id="dotsContainer">
+            <div class="mobile-dot active" onclick="goToSlide(1)"></div>
+            <div class="mobile-dot" onclick="goToSlide(2)"></div>
+            <div class="mobile-dot" onclick="goToSlide(3)"></div>
+            <div class="mobile-dot" onclick="goToSlide(4)"></div>
+        </div>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Suivant →</button>
     </div>
 
     <!-- Fullscreen Image / Video Zoom Modal -->
-    <div class="modal" id="imgModal">
-        <button class="close-modal-btn" onclick="closeModal()">Fermer (Échap)</button>
+    <div class="modal" id="imgModal" onclick="closeModal()">
+        <button class="close-modal-btn" onclick="closeModal()">Fermer ✕</button>
         <img id="modalImg" src="" alt="Image Agrandie" style="display: none;">
-        <video id="modalVideo" controls style="display: none; width: 90vw; height: 85vh; object-fit: contain;">
+        <video id="modalVideo" controls playsinline style="display: none; width: 92vw; height: 80vh; object-fit: contain;">
             <source src="img_meng/Démonstration_Prototype2_Final.mov" type="video/mp4">
         </video>
     </div>
@@ -443,27 +579,44 @@
     <script>
         let currentSlide = 1;
         const totalSlides = 4;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.mobile-dot');
+        const slideNum = document.getElementById('slideNum');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
 
         function updateSlide() {
-            document.querySelectorAll('.slide').forEach((slide, idx) => {
+            slides.forEach((slide, idx) => {
                 if (idx + 1 === currentSlide) {
                     slide.classList.add('active');
+                    slide.scrollTop = 0; // Reset scroll to top on change
                 } else {
                     slide.classList.remove('active');
                 }
             });
-            document.getElementById('slideNum').innerText = `Slide ${currentSlide} / ${totalSlides}`;
+            dots.forEach((dot, idx) => {
+                dot.classList.toggle('active', idx + 1 === currentSlide);
+            });
+            slideNum.innerText = `${currentSlide} / ${totalSlides}`;
+            prevBtn.disabled = (currentSlide === 1);
+            nextBtn.textContent = (currentSlide === totalSlides) ? "Recommencer ↺" : "Suivant →";
         }
 
         function changeSlide(direction) {
             currentSlide += direction;
             if (currentSlide < 1) currentSlide = 1;
-            if (currentSlide > totalSlides) currentSlide = totalSlides;
+            if (currentSlide > totalSlides) currentSlide = 1;
             updateSlide();
         }
 
+        function goToSlide(num) {
+            currentSlide = num;
+            updateSlide();
+        }
+
+        // Keyboard Controls
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === 'Space') {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
                 changeSlide(1);
             } else if (e.key === 'ArrowLeft') {
                 changeSlide(-1);
@@ -471,6 +624,31 @@
                 closeModal();
             }
         });
+
+        // Touch Swipe Gesture Support for Mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+        const slideContainer = document.getElementById('slideContainer');
+
+        slideContainer.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        slideContainer.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+
+        function handleSwipe() {
+            const threshold = 50;
+            if (touchEndX < touchStartX - threshold) {
+                // Swipe Left -> Next slide
+                changeSlide(1);
+            } else if (touchEndX > touchStartX + threshold) {
+                // Swipe Right -> Prev slide
+                changeSlide(-1);
+            }
+        }
 
         function openModal(cardElem) {
             const img = cardElem.querySelector('img');
@@ -496,9 +674,11 @@
 
         function closeModal() {
             const modalVideo = document.getElementById('modalVideo');
-            modalVideo.pause();
+            if (modalVideo) modalVideo.pause();
             document.getElementById('imgModal').style.display = 'none';
         }
+
+        updateSlide();
     </script>
 </body>
 </html>
